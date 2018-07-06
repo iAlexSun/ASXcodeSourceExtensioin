@@ -9,8 +9,6 @@
 #import <XcodeKit/XcodeKit.h>
 
 @interface ASAutoLayoutViewCode : NSObject
-
-
 /**
  自动添加视图布局
 

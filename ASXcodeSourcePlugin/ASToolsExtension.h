@@ -8,6 +8,6 @@
 
 #import <XcodeKit/XcodeKit.h>
 
-@interface SourceEditorExtension : NSObject <XCSourceEditorExtension>
+@interface ASToolsExtension : NSObject <XCSourceEditorExtension>
 
 @end

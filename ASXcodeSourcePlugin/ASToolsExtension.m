@@ -6,9 +6,9 @@
 //  Copyright © 2018年 Sun Wen. All rights reserved.
 //
 
-#import "SourceEditorExtension.h"
+#import "ASToolsExtension.h"
 
-@implementation SourceEditorExtension
+@implementation ASToolsExtension
 
 /*
 - (void)extensionDidFinishLaunching

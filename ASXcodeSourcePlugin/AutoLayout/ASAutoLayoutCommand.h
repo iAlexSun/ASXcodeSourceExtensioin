@@ -8,6 +8,6 @@
 
 #import <XcodeKit/XcodeKit.h>
 
-@interface SourceEditorCommand : NSObject <XCSourceEditorCommand>
+@interface ASAutoLayoutCommand : NSObject <XCSourceEditorCommand>
 
 @end

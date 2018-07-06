@@ -6,12 +6,12 @@
 //  Copyright © 2018年 Sun Wen. All rights reserved.
 //
 
-#import "SourceEditorCommand.h"
+#import "ASAutoLayoutCommand.h"
 #import "ASAutoLayoutViewCode.h"
-@implementation SourceEditorCommand
 
-- (void)performCommandWithInvocation:(XCSourceEditorCommandInvocation *)invocation completionHandler:(void (^)(NSError * _Nullable nilOrError))completionHandler
-{
+@implementation ASAutoLayoutCommand
+
+- (void)performCommandWithInvocation:(XCSourceEditorCommandInvocation *)invocation completionHandler:(void (^)(NSError * _Nullable nilOrError))completionHandler{
     // Implement your command here, invoking the completion handler when done. Pass it nil on success, and an NSError on failure.
     NSString *identifier = invocation.commandIdentifier;
     if ([identifier hasPrefix:@"iAlexSun.ASXcodeSourceExtensioin"]) {

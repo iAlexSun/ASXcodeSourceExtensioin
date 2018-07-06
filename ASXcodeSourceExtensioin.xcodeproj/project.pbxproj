@@ -15,11 +15,13 @@
 		FA81E9E220AD24D80073091C /* ASXcodeSourceExtensioinTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FA81E9E120AD24D80073091C /* ASXcodeSourceExtensioinTests.m */; };
 		FA81E9ED20AD24D80073091C /* ASXcodeSourceExtensioinUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = FA81E9EC20AD24D80073091C /* ASXcodeSourceExtensioinUITests.m */; };
 		FA81EA0120AD24E70073091C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA81EA0020AD24E70073091C /* Cocoa.framework */; };
-		FA81EA0520AD24E70073091C /* SourceEditorExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = FA81EA0420AD24E70073091C /* SourceEditorExtension.m */; };
-		FA81EA0820AD24E70073091C /* SourceEditorCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = FA81EA0720AD24E70073091C /* SourceEditorCommand.m */; };
+		FA81EA0520AD24E70073091C /* ASToolsExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = FA81EA0420AD24E70073091C /* ASToolsExtension.m */; };
 		FA81EA0D20AD24E70073091C /* ASXcodeSourcePlugin.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = FA81E9FE20AD24E70073091C /* ASXcodeSourcePlugin.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		FA81EA2820AD27200073091C /* NSString+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = FA81EA2520AD271F0073091C /* NSString+Extension.m */; };
-		FA81EA2920AD27200073091C /* ASAutoLayoutViewCode.m in Sources */ = {isa = PBXBuildFile; fileRef = FA81EA2620AD271F0073091C /* ASAutoLayoutViewCode.m */; };
+		FAA5385B20EF6E96001854E6 /* ASAutoLayoutViewCode.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA5384F20EF6E95001854E6 /* ASAutoLayoutViewCode.m */; };
+		FAA5385C20EF6E96001854E6 /* ASAutoLayoutCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA5385020EF6E95001854E6 /* ASAutoLayoutCommand.m */; };
+		FAA5385D20EF6E96001854E6 /* NSString+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA5385520EF6E96001854E6 /* NSString+Extension.m */; };
+		FAA5385E20EF6E96001854E6 /* HandelSignalCode.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA5385820EF6E96001854E6 /* HandelSignalCode.m */; };
+		FAA5385F20EF6E96001854E6 /* HandleSignalCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA5385A20EF6E96001854E6 /* HandleSignalCommand.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,17 +81,21 @@
 		FA81E9EE20AD24D80073091C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA81E9FE20AD24E70073091C /* ASXcodeSourcePlugin.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ASXcodeSourcePlugin.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA81EA0020AD24E70073091C /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
-		FA81EA0320AD24E70073091C /* SourceEditorExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SourceEditorExtension.h; sourceTree = "<group>"; };
-		FA81EA0420AD24E70073091C /* SourceEditorExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SourceEditorExtension.m; sourceTree = "<group>"; };
-		FA81EA0620AD24E70073091C /* SourceEditorCommand.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SourceEditorCommand.h; sourceTree = "<group>"; };
-		FA81EA0720AD24E70073091C /* SourceEditorCommand.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SourceEditorCommand.m; sourceTree = "<group>"; };
+		FA81EA0320AD24E70073091C /* ASToolsExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ASToolsExtension.h; sourceTree = "<group>"; };
+		FA81EA0420AD24E70073091C /* ASToolsExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ASToolsExtension.m; sourceTree = "<group>"; };
 		FA81EA0920AD24E70073091C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA81EA0A20AD24E70073091C /* ASXcodeSourcePlugin.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ASXcodeSourcePlugin.entitlements; sourceTree = "<group>"; };
-		FA81EA2320AD271F0073091C /* ASAutoLayoutViewCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAutoLayoutViewCode.h; sourceTree = "<group>"; };
 		FA81EA2420AD271F0073091C /* ASConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASConst.h; sourceTree = "<group>"; };
-		FA81EA2520AD271F0073091C /* NSString+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extension.m"; sourceTree = "<group>"; };
-		FA81EA2620AD271F0073091C /* ASAutoLayoutViewCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASAutoLayoutViewCode.m; sourceTree = "<group>"; };
-		FA81EA2720AD271F0073091C /* NSString+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extension.h"; sourceTree = "<group>"; };
+		FAA5384F20EF6E95001854E6 /* ASAutoLayoutViewCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASAutoLayoutViewCode.m; sourceTree = "<group>"; };
+		FAA5385020EF6E95001854E6 /* ASAutoLayoutCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASAutoLayoutCommand.m; sourceTree = "<group>"; };
+		FAA5385120EF6E95001854E6 /* ASAutoLayoutViewCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAutoLayoutViewCode.h; sourceTree = "<group>"; };
+		FAA5385220EF6E95001854E6 /* ASAutoLayoutCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAutoLayoutCommand.h; sourceTree = "<group>"; };
+		FAA5385420EF6E96001854E6 /* NSString+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extension.h"; sourceTree = "<group>"; };
+		FAA5385520EF6E96001854E6 /* NSString+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extension.m"; sourceTree = "<group>"; };
+		FAA5385720EF6E96001854E6 /* HandleSignalCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HandleSignalCommand.h; sourceTree = "<group>"; };
+		FAA5385820EF6E96001854E6 /* HandelSignalCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HandelSignalCode.m; sourceTree = "<group>"; };
+		FAA5385920EF6E96001854E6 /* HandelSignalCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HandelSignalCode.h; sourceTree = "<group>"; };
+		FAA5385A20EF6E96001854E6 /* HandleSignalCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HandleSignalCommand.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,19 +199,47 @@
 		FA81EA0220AD24E70073091C /* ASXcodeSourcePlugin */ = {
 			isa = PBXGroup;
 			children = (
-				FA81EA2320AD271F0073091C /* ASAutoLayoutViewCode.h */,
-				FA81EA2620AD271F0073091C /* ASAutoLayoutViewCode.m */,
+				FAA5384E20EF6E95001854E6 /* AutoLayout */,
+				FAA5385620EF6E96001854E6 /* HandleSignal */,
+				FAA5385320EF6E96001854E6 /* Tools */,
 				FA81EA2420AD271F0073091C /* ASConst.h */,
-				FA81EA2720AD271F0073091C /* NSString+Extension.h */,
-				FA81EA2520AD271F0073091C /* NSString+Extension.m */,
-				FA81EA0320AD24E70073091C /* SourceEditorExtension.h */,
-				FA81EA0420AD24E70073091C /* SourceEditorExtension.m */,
-				FA81EA0620AD24E70073091C /* SourceEditorCommand.h */,
-				FA81EA0720AD24E70073091C /* SourceEditorCommand.m */,
+				FA81EA0320AD24E70073091C /* ASToolsExtension.h */,
+				FA81EA0420AD24E70073091C /* ASToolsExtension.m */,
 				FA81EA0920AD24E70073091C /* Info.plist */,
 				FA81EA0A20AD24E70073091C /* ASXcodeSourcePlugin.entitlements */,
 			);
 			path = ASXcodeSourcePlugin;
+			sourceTree = "<group>";
+		};
+		FAA5384E20EF6E95001854E6 /* AutoLayout */ = {
+			isa = PBXGroup;
+			children = (
+				FAA5385120EF6E95001854E6 /* ASAutoLayoutViewCode.h */,
+				FAA5384F20EF6E95001854E6 /* ASAutoLayoutViewCode.m */,
+				FAA5385220EF6E95001854E6 /* ASAutoLayoutCommand.h */,
+				FAA5385020EF6E95001854E6 /* ASAutoLayoutCommand.m */,
+			);
+			path = AutoLayout;
+			sourceTree = "<group>";
+		};
+		FAA5385320EF6E96001854E6 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				FAA5385420EF6E96001854E6 /* NSString+Extension.h */,
+				FAA5385520EF6E96001854E6 /* NSString+Extension.m */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		FAA5385620EF6E96001854E6 /* HandleSignal */ = {
+			isa = PBXGroup;
+			children = (
+				FAA5385920EF6E96001854E6 /* HandelSignalCode.h */,
+				FAA5385820EF6E96001854E6 /* HandelSignalCode.m */,
+				FAA5385720EF6E96001854E6 /* HandleSignalCommand.h */,
+				FAA5385A20EF6E96001854E6 /* HandleSignalCommand.m */,
+			);
+			path = HandleSignal;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -295,6 +329,11 @@
 					FA81E9C620AD24D70073091C = {
 						CreatedOnToolsVersion = 9.3;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
 					};
 					FA81E9DC20AD24D80073091C = {
 						CreatedOnToolsVersion = 9.3;
@@ -397,10 +436,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA81EA0520AD24E70073091C /* SourceEditorExtension.m in Sources */,
-				FA81EA2820AD27200073091C /* NSString+Extension.m in Sources */,
-				FA81EA2920AD27200073091C /* ASAutoLayoutViewCode.m in Sources */,
-				FA81EA0820AD24E70073091C /* SourceEditorCommand.m in Sources */,
+				FAA5385B20EF6E96001854E6 /* ASAutoLayoutViewCode.m in Sources */,
+				FA81EA0520AD24E70073091C /* ASToolsExtension.m in Sources */,
+				FAA5385C20EF6E96001854E6 /* ASAutoLayoutCommand.m in Sources */,
+				FAA5385E20EF6E96001854E6 /* HandelSignalCode.m in Sources */,
+				FAA5385D20EF6E96001854E6 /* NSString+Extension.m in Sources */,
+				FAA5385F20EF6E96001854E6 /* HandleSignalCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
