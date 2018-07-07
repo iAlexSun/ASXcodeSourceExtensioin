@@ -61,7 +61,7 @@
         //输出到文件
         for (NSInteger i = 0; i < lineCount; i ++) {
             NSString *lineStr = invocation.buffer.lines[i];
-            if ([lineStr containsString:@"#pragma mark - Get"]) {
+            if ([lineStr containsString:@"#pragma mark - Get"] || [lineStr containsString:@"#pragma mark -Get"] || [lineStr containsString:@"#pragma mark- Get"] || [lineStr containsString:@"#pragma mark-Get"]) {
                 for (NSInteger j = i + 1; j < nameArr.count + i + 1; j ++) {
                     NSArray *formatArr = [nameArr objectAtIndex:nameArr.count - j - 1  + (i + 1 )];
                     for (int z = 0; z <formatArr.count ; z ++) {
@@ -70,7 +70,7 @@
                 }
             }
 
-            if ([lineStr containsString:@"#pragma mark - Masonry"]) {
+            if ([lineStr containsString:@"#pragma mark - Masonry"]|| [lineStr containsString:@"#pragma mark -Masonry"] ||[lineStr containsString:@"#pragma mark- Masonry"] || [lineStr containsString:@"#pragma mark-Masonry"]) {
                 for (NSInteger j = i + 1; j < containtsArr.count + i + 1; j ++) {
                     NSArray *cArr = [containtsArr objectAtIndex:containtsArr.count - j - 1  + (i + 1 )];
                     for (int z = 0; z <cArr.count ; z ++) {
@@ -78,7 +78,7 @@
                     }
                 }
             }
-            if ([lineStr containsString:@"#pragma mark - Add"]) {
+            if ([lineStr containsString:@"#pragma mark - Add"]||[lineStr containsString:@"#pragma mark -Add"]||[lineStr containsString:@"#pragma mark- Add"]||[lineStr containsString:@"#pragma mark-Add"]) {
                 for (NSInteger j = i + 1; j < subviewsArr.count + i + 1; j ++) {
                     NSArray *subArr = [subviewsArr objectAtIndex:subviewsArr.count - j - 1  + (i + 1 )];
                     for (int z = 0; z <subArr.count ; z ++) {
