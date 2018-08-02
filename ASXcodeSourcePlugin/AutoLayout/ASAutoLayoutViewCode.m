@@ -26,79 +26,74 @@
 
 - (void)addAutoLayoutViewCodeWithInvocation:(XCSourceEditorCommandInvocation *)invocation {
     for (XCSourceTextRange *rang in invocation.buffer.selections) {
-        NSInteger startLine = rang.start.line;
-        NSInteger endLine = rang.end.line;
-        
-        self.lineCount = invocation.buffer.lines.count;
-        
-        for (NSInteger i = startLine; i <= endLine; i++) {
-            NSString *string = invocation.buffer.lines[i];
-
-            if ([string isEqualToString:@"\n"] || ![string containsString:@";"]) {
-                continue;
-            }
-            // 去掉空格
-            string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
-            // 获取类名
-            NSString *classNameStr = nil;
-            // 获取属性名或者变量名
-            NSString *propertyNameStr = [string stringBetweenLeftStr:@"*" andRightStr:@";"];
-            
-            //判断NSMutableArray<NSString *> *testArray 这样的情况来处理
-            if ([string containsString:@"NSMutableArray<"]) {
-                classNameStr = [string stringBetweenLeftStr:@")" andRightStr:@"*>"];
-                classNameStr = [classNameStr stringByAppendingString:@"*>"];
-                propertyNameStr = [string stringBetweenLeftStr:@"*>*" andRightStr:@";"];
-            }else if ([string containsString:@")"]) {
-                classNameStr = [string stringBetweenLeftStr:@")" andRightStr:@"*"];
-            }else{
-                classNameStr = [string stringBetweenLeftStr:nil andRightStr:@"*"];
-            }
-            
-            //懒加载
-            [self.lazyArray addObject:[self stringForClassName:classNameStr andPropertyName:propertyNameStr]];
-            // 获取布局
-            [self.containtsArray addObject:[self constraintsForClassName:classNameStr PropertyName:propertyNameStr]];
-            // 获取添加subView
-            [self.subviewsArray addObject:[self addSubViewForClassName:classNameStr PropertyName:propertyNameStr]];
-        }
-
-        //输出到文件
-        for (NSInteger i = 0; i < self.lineCount; i ++) {
-            NSString *lineStr = invocation.buffer.lines[i];
-            if ([self checkCurrentString:lineStr isContainsString:kGetterFormater]) {
-                [self addBufferWithCurrentLineIndex:i formaterArray:self.lazyArray invocation:invocation];
-            }else if ([self checkCurrentString:lineStr isContainsString:kMasonryFormater]) {
-                [self addBufferWithCurrentLineIndex:i formaterArray:self.containtsArray invocation:invocation];
-            }else if ([self checkCurrentString:lineStr isContainsString:kAddSubviewFormater]){
-                [self addBufferWithCurrentLineIndex:i formaterArray:self.subviewsArray invocation:invocation];
-            }
-        }
-        
+        [self initWithFormaterArray:rang invocation:invocation];
+        [self addBufferInsertInvocation:invocation];
     }
 }
-
-
+-(void)initWithFormaterArray:(XCSourceTextRange *)rang invocation:(XCSourceEditorCommandInvocation *)invocation {
+    NSInteger startLine = rang.start.line;
+    NSInteger endLine = rang.end.line;
+    self.lineCount = invocation.buffer.lines.count;
+    for (NSInteger i = startLine; i <= endLine; i++) {
+        NSString *string = invocation.buffer.lines[i];
+        
+        if ([string isEqualToString:@"\n"] || ![string containsString:@";"]) {
+            continue;
+        }
+        // 去掉空格
+        string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
+        // 获取类名
+        NSString *classNameStr = nil;
+        // 获取属性名或者变量名
+        NSString *propertyNameStr = [string stringBetweenLeftStr:@"*" andRightStr:@";"];
+        //判断NSMutableArray<NSString *> *testArray 这样的情况来处理
+        if ([string containsString:@"NSMutableArray<"]) {
+            classNameStr = [string stringBetweenLeftStr:@")" andRightStr:@"*>"];
+            classNameStr = [classNameStr stringByAppendingString:@"*>"];
+            propertyNameStr = [string stringBetweenLeftStr:@"*>*" andRightStr:@";"];
+        }else if ([string containsString:@")"]) {
+            classNameStr = [string stringBetweenLeftStr:@")" andRightStr:@"*"];
+        }else{
+            classNameStr = [string stringBetweenLeftStr:nil andRightStr:@"*"];
+        }
+        //懒加载
+        [self.lazyArray addObject:[self stringForClassName:classNameStr andPropertyName:propertyNameStr]];
+        //获取布局
+        [self.containtsArray addObject:[self constraintsForClassName:classNameStr PropertyName:propertyNameStr]];
+        //获取添加subView
+        [self.subviewsArray addObject:[self addSubViewForClassName:classNameStr PropertyName:propertyNameStr]];
+    }
+}
+//进行判断进行替换
+-(void)addBufferInsertInvocation:(XCSourceEditorCommandInvocation *)invocation{
+    for (NSInteger i = 0; i < self.lineCount; i ++) {
+        NSString *lineStr = invocation.buffer.lines[i];
+        if ([self checkCurrentString:lineStr isContainsString:kGetterFormater]) {
+            [self addBufferWithCurrentLineIndex:i formaterArray:self.lazyArray invocation:invocation];
+        }else if ([self checkCurrentString:lineStr isContainsString:kMasonryFormater]) {
+            [self addBufferWithCurrentLineIndex:i formaterArray:self.containtsArray invocation:invocation];
+        }else if ([self checkCurrentString:lineStr isContainsString:kAddSubviewFormater]){
+            [self addBufferWithCurrentLineIndex:i formaterArray:self.subviewsArray invocation:invocation];
+        }
+    }
+}
 -(void)addBufferWithCurrentLineIndex:(NSInteger)currentLineIndex formaterArray:(NSMutableArray *)formaterArray  invocation:(XCSourceEditorCommandInvocation *)invocation {
        //这里的数字是不同的,需要对自动化生成的行数来决定的
 //        self.lineCount = formaterArray.count *10 + self.lineCount;
         //这里的循环主要就是开始 在检测到的下一行开始轮询
         for (NSInteger i = currentLineIndex + 1; i < formaterArray.count + currentLineIndex + 1; i ++) {
             NSArray *formatArr = [formaterArray objectAtIndex:formaterArray.count - i - 1  + (currentLineIndex + 1 )];
-            for (int z = 0; z <formatArr.count ; z ++) {
-                [invocation.buffer.lines insertObject:formatArr[z] atIndex:i + 1  + z];
+            for (int j = 0; j <formatArr.count ; j ++) {
+                [invocation.buffer.lines insertObject:formatArr[j] atIndex:currentLineIndex + 1  + j];
             }
         }
 }
 -(BOOL)checkCurrentString:(NSString *)lineString isContainsString:(NSString *)isContainsString{
     if ([lineString containsString:isContainsString]){
-        NSLog(@"---YES");
         return YES;
     }
-    NSLog(@"---NO");
     return NO;
 }
-
 - (NSArray *)stringForClassName:(NSString *)className andPropertyName:(NSString *)propertyName{
     NSString *str = @"";
     if ([className containsString:@"TableView"]){
