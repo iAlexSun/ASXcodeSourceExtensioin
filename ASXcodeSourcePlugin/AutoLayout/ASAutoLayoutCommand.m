@@ -15,7 +15,7 @@
     // Implement your command here, invoking the completion handler when done. Pass it nil on success, and an NSError on failure.
     NSString *identifier = invocation.commandIdentifier;
     if ([identifier hasPrefix:@"iAlexSun.ASXcodeSourceExtensioin"]) {
-        [ASAutoLayoutViewCode addAutoLayoutViewCodeWithInvocation:invocation];
+        [[ASAutoLayoutViewCode sharedInstane] addAutoLayoutViewCodeWithInvocation:invocation];
     }
     completionHandler(nil);
 }

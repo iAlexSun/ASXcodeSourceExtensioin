@@ -10,17 +10,27 @@
 #import "NSString+Extension.h"
 #import "ASConst.h"
 
+@interface ASAutoLayoutViewCode()
+
+@property(nonatomic,copy)NSMutableArray *lazyArray;
+
+@property(nonatomic,copy)NSMutableArray *containtsArray;
+
+@property(nonatomic,copy)NSMutableArray *subviewsArray;
+//当前字符流的行数
+@property(nonatomic,assign)NSInteger lineCount;
+
+@end
+
 @implementation ASAutoLayoutViewCode
 
-+ (void)addAutoLayoutViewCodeWithInvocation:(XCSourceEditorCommandInvocation *)invocation {
+- (void)addAutoLayoutViewCodeWithInvocation:(XCSourceEditorCommandInvocation *)invocation {
     for (XCSourceTextRange *rang in invocation.buffer.selections) {
         NSInteger startLine = rang.start.line;
         NSInteger endLine = rang.end.line;
-        NSInteger lineCount = invocation.buffer.lines.count;
-
-        NSMutableArray *nameArr = [NSMutableArray array];
-        NSMutableArray *containtsArr = [NSMutableArray array];
-        NSMutableArray *subviewsArr = [NSMutableArray array];
+        
+        self.lineCount = invocation.buffer.lines.count;
+        
         for (NSInteger i = startLine; i <= endLine; i++) {
             NSString *string = invocation.buffer.lines[i];
 
@@ -34,7 +44,6 @@
             // 获取属性名或者变量名
             NSString *propertyNameStr = [string stringBetweenLeftStr:@"*" andRightStr:@";"];
             
-            
             //判断NSMutableArray<NSString *> *testArray 这样的情况来处理
             if ([string containsString:@"NSMutableArray<"]) {
                 classNameStr = [string stringBetweenLeftStr:@")" andRightStr:@"*>"];
@@ -46,51 +55,51 @@
                 classNameStr = [string stringBetweenLeftStr:nil andRightStr:@"*"];
             }
             
-            NSArray *formatArr = [self stringForClassName:classNameStr andPropertyName:propertyNameStr];
-            [nameArr addObject:formatArr];
-
+            //懒加载
+            [self.lazyArray addObject:[self stringForClassName:classNameStr andPropertyName:propertyNameStr]];
             // 获取布局
-            NSArray *conArr = [self constraintsForClassName:classNameStr PropertyName:propertyNameStr];
-            [containtsArr addObject:conArr];
-
+            [self.containtsArray addObject:[self constraintsForClassName:classNameStr PropertyName:propertyNameStr]];
             // 获取添加subView
-            NSArray *subViewArr = [self addSubViewForClassName:classNameStr PropertyName:propertyNameStr];
-            [subviewsArr addObject:subViewArr];
+            [self.subviewsArray addObject:[self addSubViewForClassName:classNameStr PropertyName:propertyNameStr]];
         }
 
         //输出到文件
-        for (NSInteger i = 0; i < lineCount; i ++) {
+        for (NSInteger i = 0; i < self.lineCount; i ++) {
             NSString *lineStr = invocation.buffer.lines[i];
-            if ([lineStr containsString:@"#pragma mark - Get"] || [lineStr containsString:@"#pragma mark -Get"] || [lineStr containsString:@"#pragma mark- Get"] || [lineStr containsString:@"#pragma mark-Get"]) {
-                for (NSInteger j = i + 1; j < nameArr.count + i + 1; j ++) {
-                    NSArray *formatArr = [nameArr objectAtIndex:nameArr.count - j - 1  + (i + 1 )];
-                    for (int z = 0; z <formatArr.count ; z ++) {
-                        [invocation.buffer.lines insertObject:formatArr[z] atIndex:i + 1  + z];
-                    }
-                }
-            }
-
-            if ([lineStr containsString:@"#pragma mark - Masonry"]|| [lineStr containsString:@"#pragma mark -Masonry"] ||[lineStr containsString:@"#pragma mark- Masonry"] || [lineStr containsString:@"#pragma mark-Masonry"]) {
-                for (NSInteger j = i + 1; j < containtsArr.count + i + 1; j ++) {
-                    NSArray *cArr = [containtsArr objectAtIndex:containtsArr.count - j - 1  + (i + 1 )];
-                    for (int z = 0; z <cArr.count ; z ++) {
-                        [invocation.buffer.lines insertObject:cArr[z] atIndex:i + 1 + z];
-                    }
-                }
-            }
-            if ([lineStr containsString:@"#pragma mark - Add"]||[lineStr containsString:@"#pragma mark -Add"]||[lineStr containsString:@"#pragma mark- Add"]||[lineStr containsString:@"#pragma mark-Add"]) {
-                for (NSInteger j = i + 1; j < subviewsArr.count + i + 1; j ++) {
-                    NSArray *subArr = [subviewsArr objectAtIndex:subviewsArr.count - j - 1  + (i + 1 )];
-                    for (int z = 0; z <subArr.count ; z ++) {
-                        [invocation.buffer.lines insertObject:subArr[z] atIndex:i + 1 + z];
-                    }
-                }
+            if ([self checkCurrentString:lineStr isContainsString:kGetterFormater]) {
+                [self addBufferWithCurrentLineIndex:i formaterArray:self.lazyArray invocation:invocation];
+            }else if ([self checkCurrentString:lineStr isContainsString:kMasonryFormater]) {
+                [self addBufferWithCurrentLineIndex:i formaterArray:self.containtsArray invocation:invocation];
+            }else if ([self checkCurrentString:lineStr isContainsString:kAddSubviewFormater]){
+                [self addBufferWithCurrentLineIndex:i formaterArray:self.subviewsArray invocation:invocation];
             }
         }
+        
     }
 }
 
-+ (NSArray *)stringForClassName:(NSString *)className andPropertyName:(NSString *)propertyName{
+
+-(void)addBufferWithCurrentLineIndex:(NSInteger)currentLineIndex formaterArray:(NSMutableArray *)formaterArray  invocation:(XCSourceEditorCommandInvocation *)invocation {
+       //这里的数字是不同的,需要对自动化生成的行数来决定的
+//        self.lineCount = formaterArray.count *10 + self.lineCount;
+        //这里的循环主要就是开始 在检测到的下一行开始轮询
+        for (NSInteger i = currentLineIndex + 1; i < formaterArray.count + currentLineIndex + 1; i ++) {
+            NSArray *formatArr = [formaterArray objectAtIndex:formaterArray.count - i - 1  + (currentLineIndex + 1 )];
+            for (int z = 0; z <formatArr.count ; z ++) {
+                [invocation.buffer.lines insertObject:formatArr[z] atIndex:i + 1  + z];
+            }
+        }
+}
+-(BOOL)checkCurrentString:(NSString *)lineString isContainsString:(NSString *)isContainsString{
+    if ([lineString containsString:isContainsString]){
+        NSLog(@"---YES");
+        return YES;
+    }
+    NSLog(@"---NO");
+    return NO;
+}
+
+- (NSArray *)stringForClassName:(NSString *)className andPropertyName:(NSString *)propertyName{
     NSString *str = @"";
     if ([className containsString:@"TableView"]){
         str = [NSString stringWithFormat:TableFormat,className,propertyName,propertyName,propertyName,className,propertyName];
@@ -101,30 +110,61 @@
     }else{
         str = [NSString stringWithFormat:CommonFormat,className,propertyName,propertyName,propertyName,className,propertyName];
     }
-    NSArray *formaterArr = [[str componentsSeparatedByString:@"\n"] arrayByAddingObject:@"\n"];
+    NSArray *formaterArr = [[str componentsSeparatedByString:@"\n"] arrayByAddingObject:@""];
 
     return formaterArr;
 }
  
 //这里之后需要修改逻辑,去判断是否自定义的view还有其他类型的概念
-+ (NSArray *)constraintsForClassName:(NSString *)className PropertyName:(NSString *)propertyName {
+- (NSArray *)constraintsForClassName:(NSString *)className PropertyName:(NSString *)propertyName {
     if ([className containsString:@"Button"] || [className containsString:@"View"] ||[className containsString:@"Label"] || [className containsString:@"UIImageView"] || [className containsString:@"TextField"] || [className containsString:@"TextView"]) {
 
-        NSString *str = [NSString stringWithFormat:PHEMasonryFormat,propertyName];
-        NSArray *conArr = [[str componentsSeparatedByString:@"\n"] arrayByAddingObject:@"\n"];
+        NSString *str = [NSString stringWithFormat:kASMasonryFormater,propertyName];
+        NSArray *conArr = [[str componentsSeparatedByString:@"\n"] arrayByAddingObject:@""];
         return conArr;
     }
     return [NSMutableArray array];
 }
 
-+ (NSArray *)addSubViewForClassName:(NSString *)className PropertyName:(NSString *)propertyName {
+- (NSArray *)addSubViewForClassName:(NSString *)className PropertyName:(NSString *)propertyName {
      if ([className containsString:@"Button"] || [className containsString:@"View"] ||[className containsString:@"Label"] || [className containsString:@"UIImageView"] || [className containsString:@"TextField"] || [className containsString:@"TextView"]) {
 
          NSString *str = [NSString stringWithFormat:AddsubviewFormat,propertyName];
          NSArray *conArr = [[str componentsSeparatedByString:@""] arrayByAddingObject:@""];
          return conArr;
      }
+   
+    
     return [NSMutableArray array];
 }
 
+
+#pragma mark - Get
+-(NSMutableArray *)lazyArray{
+    if (_lazyArray == nil) {
+        _lazyArray = [[NSMutableArray alloc] init];
+    }
+    return _lazyArray;
+}
+-(NSMutableArray *)containtsArray{
+    if (_containtsArray == nil) {
+        _containtsArray = [[NSMutableArray alloc] init];
+    }
+    return _containtsArray;
+}
+-(NSMutableArray *)subviewsArray{
+    if (_subviewsArray == nil) {
+        _subviewsArray = [[NSMutableArray alloc] init];
+    }
+    return _subviewsArray;
+}
+
++(ASAutoLayoutViewCode *)sharedInstane{
+    static dispatch_once_t predicate;
+    static ASAutoLayoutViewCode * sharedInstane;
+    dispatch_once(&predicate, ^{
+        sharedInstane = [[ASAutoLayoutViewCode alloc] init];
+    });
+    return sharedInstane;
+}
 @end

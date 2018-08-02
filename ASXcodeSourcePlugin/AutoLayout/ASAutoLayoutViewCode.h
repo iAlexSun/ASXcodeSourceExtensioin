@@ -9,11 +9,12 @@
 #import <XcodeKit/XcodeKit.h>
 
 @interface ASAutoLayoutViewCode : NSObject
-/**
- 自动添加视图布局
 
++(ASAutoLayoutViewCode *)sharedInstane;
+/**
+ 自动添加视图布局 && 设置Getter方法 && 自动AddSubView
  @param invocation 获取选中的字符流
  */
-+ (void)addAutoLayoutViewCodeWithInvocation:(XCSourceEditorCommandInvocation *)invocation;
+- (void)addAutoLayoutViewCodeWithInvocation:(XCSourceEditorCommandInvocation *)invocation;
 
 @end
