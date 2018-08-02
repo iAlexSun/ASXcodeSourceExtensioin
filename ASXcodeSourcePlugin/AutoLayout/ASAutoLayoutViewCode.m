@@ -17,7 +17,7 @@
 @property(nonatomic,copy)NSMutableArray *containtsArray;
 
 @property(nonatomic,copy)NSMutableArray *subviewsArray;
-//当前字符流的行数
+//字符流的行数
 @property(nonatomic,assign)NSInteger lineCount;
 
 @end
@@ -57,11 +57,11 @@
             classNameStr = [string stringBetweenLeftStr:nil andRightStr:@"*"];
         }
         //懒加载
-        [self.lazyArray addObject:[self stringForClassName:classNameStr andPropertyName:propertyNameStr]];
+        [self.lazyArray addObject:[self getterForClassName:classNameStr andPropertyName:propertyNameStr]];
         //获取布局
-        [self.containtsArray addObject:[self constraintsForClassName:classNameStr PropertyName:propertyNameStr]];
+        [self.containtsArray addObject:[self addSubViewAndconstraintsForClassName:classNameStr PropertyName:propertyNameStr]];
         //获取添加subView
-        [self.subviewsArray addObject:[self addSubViewForClassName:classNameStr PropertyName:propertyNameStr]];
+        [self.subviewsArray addObject:[self addSubViewAndconstraintsForClassName:classNameStr PropertyName:propertyNameStr]];
     }
 }
 //进行判断进行替换
@@ -94,46 +94,24 @@
     }
     return NO;
 }
-- (NSArray *)stringForClassName:(NSString *)className andPropertyName:(NSString *)propertyName{
+- (NSArray *)getterForClassName:(NSString *)className andPropertyName:(NSString *)propertyName{
     NSString *str = @"";
-    if ([className containsString:@"TableView"]){
-        str = [NSString stringWithFormat:TableFormat,className,propertyName,propertyName,propertyName,className,propertyName];
-    }else if ([className containsString:@"CollectionView"]){
-        str = [NSString stringWithFormat:CollectionFormat,className,propertyName,propertyName,propertyName,className,propertyName];
-    }else if ([className containsString:@"RACCommand"]){
-        str = [NSString stringWithFormat:Command,propertyName,propertyName,propertyName,propertyName];
+   if ([className containsString:kCommand]){
+        str = [NSString stringWithFormat:kASCommandFormater,propertyName,propertyName,propertyName,propertyName];
     }else{
-        str = [NSString stringWithFormat:CommonFormat,className,propertyName,propertyName,propertyName,className,propertyName];
+        str = [NSString stringWithFormat:kASCommonFormater,className,propertyName,propertyName,propertyName,className,propertyName];
     }
     NSArray *formaterArr = [[str componentsSeparatedByString:@"\n"] arrayByAddingObject:@""];
-
     return formaterArr;
 }
- 
-//这里之后需要修改逻辑,去判断是否自定义的view还有其他类型的概念
-- (NSArray *)constraintsForClassName:(NSString *)className PropertyName:(NSString *)propertyName {
-    if ([className containsString:@"Button"] || [className containsString:@"View"] ||[className containsString:@"Label"] || [className containsString:@"UIImageView"] || [className containsString:@"TextField"] || [className containsString:@"TextView"]) {
-
+- (NSArray *)addSubViewAndconstraintsForClassName:(NSString *)className PropertyName:(NSString *)propertyName {
+    if ([className containsString:kButton] || [className containsString:kView] ||[className containsString:kLabel] || [className containsString:kUIImageView] || [className containsString:kTextField] || [className containsString:kTextView]) {
         NSString *str = [NSString stringWithFormat:kASMasonryFormater,propertyName];
-        NSArray *conArr = [[str componentsSeparatedByString:@"\n"] arrayByAddingObject:@""];
+        NSArray *conArr = [[str componentsSeparatedByString:@""] arrayByAddingObject:@""];
         return conArr;
     }
     return [NSMutableArray array];
 }
-
-- (NSArray *)addSubViewForClassName:(NSString *)className PropertyName:(NSString *)propertyName {
-     if ([className containsString:@"Button"] || [className containsString:@"View"] ||[className containsString:@"Label"] || [className containsString:@"UIImageView"] || [className containsString:@"TextField"] || [className containsString:@"TextView"]) {
-
-         NSString *str = [NSString stringWithFormat:AddsubviewFormat,propertyName];
-         NSArray *conArr = [[str componentsSeparatedByString:@""] arrayByAddingObject:@""];
-         return conArr;
-     }
-   
-    
-    return [NSMutableArray array];
-}
-
-
 #pragma mark - Get
 -(NSMutableArray *)lazyArray{
     if (_lazyArray == nil) {
@@ -153,7 +131,6 @@
     }
     return _subviewsArray;
 }
-
 +(ASAutoLayoutViewCode *)sharedInstane{
     static dispatch_once_t predicate;
     static ASAutoLayoutViewCode * sharedInstane;
