@@ -6,13 +6,17 @@
 //  Copyright © 2018年 Sun Wen. All rights reserved.
 //
 
+
+
+//需要添加内容标记  这里可以随意修改
 static NSString *const kGetterFormater = @"#pragma mark - Getter";
-//static NSString *const kAddSubviewFormater = @"#pragma mark - AddSubview";
 static NSString *const kAddSubviewFormater = @"- (void)addSubviews" ;
-//static NSString *const kMasonryFormater = @"#pragma mark - Masonry";
 static NSString *const kMasonryFormater = @"- (void)addConstraints";
-//static NSString *const kInitFormater = @"#pragma mark - Init";
 static NSString *const kInitFormater = @"[self bindViewModel]";
+
+//static NSString *const kAddSubviewFormater = @"#pragma mark - AddSubview";
+//static NSString *const kMasonryFormater = @"#pragma mark - Masonry";
+//static NSString *const kInitFormater = @"#pragma mark - Init";
 
 static NSString *const kCommand = @"Command";
 static NSString *const kButton =  @"Button";
@@ -38,10 +42,9 @@ static NSString *const kASAddsubviewFormater = @"    [<#UIView#> addSubview:self
 
 static NSString *const kASCommonFormater = @"- (%@ *)%@{\n    if (_%@ == nil) {\n        _%@ = [[%@ alloc] init];\n    }\n    return _%@;\n}";
 
-static NSString *const kLabelInitFormater = @"        self.authorNameLabel.text = <#(nullable NSString *)#>;";
+static NSString *const kLabelInitFormater = @"        self.%@.text = <#(nullable NSString *)#>;";
 
 static NSString *const kUIButtonInitFormater = @"        [self.%@ setTitle:<#(nullable NSString *)#> forState:UIControlStateNormal];\n        [self.%@ setImage:[UIImage imageNamed:<#(nullable NSString *)#>] forState:UIControlStateNormal];";
 
 static NSString *const kUIImageViewInitFormater = @"        [self.%@ sd_setImageWithURL:[NSURL URLWithString:<#(nullable NSString *)#>] placeholderImage:[UIImage imageNamed:<#(nullable NSString *)#>]];";
-#define CommandSignal @"   [self.%@.executionSignals.flatten subscribeNext:^(id x) {\n       @strongify(self);\n\n   }];"
 

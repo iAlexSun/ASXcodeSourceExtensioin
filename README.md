@@ -15,6 +15,9 @@
 ![](http://lc-9srqavax.cn-n1.lcfile.com/75f3f53f3b5e580dcfbb.png)
 
 ## 如何使用
+### 自动设置初始化控件
+ - 在需要添加代码的地方插入标记例如(`#pragma mark - init`),由于自己业务原因我将标记修改为[self bindViewModel]方法,这样可以无需插入任何代码就可以一键生成需要的代码。![](http://lc-9srqavax.cn-n1.lcfile.com/f3f1714e1230f28e5bf0.jpg)
+
 ### 自动设置懒加载方法
  
  - 在需要添加代码的地方插入`#pragma mark - Get`(注意一定要是这个格式的标记否者无法社会您构成代码),例如`@property(nonatomic,strong)NSArray *testArray;`
@@ -23,8 +26,8 @@
 
 
 ### 自动设置Masonry自动布局
- - 在需要添加代码的地方插入`#pragma mark - Add`,`#pragma mark - Masonry`,例如`@property(nonatomic,strong)UIView *testView;`
- - 选中选择已经设置好快捷键的插件,之后会在`#pragma mark - Masonry `,`#pragma mark - Add`下方出现懒加载.
+ - 在需要添加代码的地方可以插入你想要在标记下生成的代码,例如标记为（`#pragma mark - Add`,`#pragma mark - Masonry`）,例如`@property(nonatomic,strong)UIView *testView;`
+ - 选中选择已经设置好快捷键的插件,之后会在标记(`#pragma mark - Masonry `,`#pragma mark - Add`)下方出现懒加载.
  - 也可以支持批量设置自动生成代码.
  
  ![](http://lc-9srqavax.cn-n1.lcfile.com/a07d71cc4bb147b3d326.gif)
