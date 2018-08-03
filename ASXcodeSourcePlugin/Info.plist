@@ -36,14 +36,6 @@
 					<key>XCSourceEditorCommandName</key>
 					<string>ASAutoLayout Command</string>
 				</dict>
-				<dict>
-					<key>XCSourceEditorCommandClassName</key>
-					<string>HandleSignalCommand</string>
-					<key>XCSourceEditorCommandIdentifier</key>
-					<string>$(PRODUCT_BUNDLE_IDENTIFIER).HandleSignalCommand</string>
-					<key>XCSourceEditorCommandName</key>
-					<string>ASHandleSignal Command</string>
-				</dict>
 			</array>
 			<key>XCSourceEditorExtensionPrincipalClass</key>
 			<string>ASToolsExtension</string>

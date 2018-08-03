@@ -17,8 +17,10 @@
 @property(nonatomic,copy)NSMutableArray *containtsArray;
 
 @property(nonatomic,copy)NSMutableArray *subviewsArray;
+
+@property(nonatomic,copy)NSMutableArray *propertyValueArray;
 //字符流的行数
-@property(nonatomic,assign)NSInteger lineCount;
+@property(nonatomic,assign)NSUInteger lineCount;
 
 @end
 
@@ -59,9 +61,11 @@
         //懒加载
         [self.lazyArray addObject:[self getterForClassName:classNameStr andPropertyName:propertyNameStr]];
         //获取布局
-        [self.containtsArray addObject:[self addSubViewAndconstraintsForClassName:classNameStr PropertyName:propertyNameStr]];
+        [self.containtsArray addObject:[self addConstraintsForClassName:classNameStr PropertyName:propertyNameStr]];
         //获取添加subView
-        [self.subviewsArray addObject:[self addSubViewAndconstraintsForClassName:classNameStr PropertyName:propertyNameStr]];
+        [self.subviewsArray addObject:[self addSubViewForClassName:classNameStr PropertyName:propertyNameStr]];
+        //初始化所有属性
+        [self.propertyValueArray addObject:[self propertyInitForClassName:classNameStr PropertyName:propertyNameStr]];
     }
 }
 //进行判断进行替换
@@ -69,24 +73,28 @@
     for (NSInteger i = 0; i < self.lineCount; i ++) {
         NSString *lineStr = invocation.buffer.lines[i];
         if ([self checkCurrentString:lineStr isContainsString:kGetterFormater]) {
+            [self addCheckLineCoutWithCurrentIndex:i formaterArray:self.lazyArray];
             [self addBufferWithCurrentLineIndex:i formaterArray:self.lazyArray invocation:invocation];
         }else if ([self checkCurrentString:lineStr isContainsString:kMasonryFormater]) {
+              [self addCheckLineCoutWithCurrentIndex:i formaterArray:self.containtsArray];
             [self addBufferWithCurrentLineIndex:i formaterArray:self.containtsArray invocation:invocation];
         }else if ([self checkCurrentString:lineStr isContainsString:kAddSubviewFormater]){
+            [self addCheckLineCoutWithCurrentIndex:i formaterArray:self.subviewsArray];
             [self addBufferWithCurrentLineIndex:i formaterArray:self.subviewsArray invocation:invocation];
+        }else if ([self checkCurrentString:lineStr isContainsString:kInitFormater]){
+            [self addCheckLineCoutWithCurrentIndex:i formaterArray:self.propertyValueArray];
+            [self addBufferWithCurrentLineIndex:i formaterArray:self.propertyValueArray invocation:invocation];
         }
     }
 }
 -(void)addBufferWithCurrentLineIndex:(NSInteger)currentLineIndex formaterArray:(NSMutableArray *)formaterArray  invocation:(XCSourceEditorCommandInvocation *)invocation {
-       //这里的数字是不同的,需要对自动化生成的行数来决定的
-//        self.lineCount = formaterArray.count *10 + self.lineCount;
-        //这里的循环主要就是开始 在检测到的下一行开始轮询
-        for (NSInteger i = currentLineIndex + 1; i < formaterArray.count + currentLineIndex + 1; i ++) {
-            NSArray *formatArr = [formaterArray objectAtIndex:formaterArray.count - i - 1  + (currentLineIndex + 1 )];
-            for (int j = 0; j <formatArr.count ; j ++) {
-                [invocation.buffer.lines insertObject:formatArr[j] atIndex:currentLineIndex + 1  + j];
-            }
+    //这里的循环主要就是开始 在检测到的下一行开始轮询
+    for (NSInteger i = currentLineIndex + 1; i < formaterArray.count + currentLineIndex + 1; i ++) {
+        NSArray *formatArr = [formaterArray objectAtIndex:formaterArray.count - i - 1  + (currentLineIndex + 1 )];
+        for (int j = 0; j <formatArr.count ; j ++) {
+            [invocation.buffer.lines insertObject:formatArr[j] atIndex:currentLineIndex + 1  + j];
         }
+    }
 }
 -(BOOL)checkCurrentString:(NSString *)lineString isContainsString:(NSString *)isContainsString{
     if ([lineString containsString:isContainsString]){
@@ -94,9 +102,22 @@
     }
     return NO;
 }
+-(void)addCheckLineCoutWithCurrentIndex:(NSInteger)currentIndex formaterArray:(NSMutableArray *)formaterArray{
+    for (NSInteger i = currentIndex + 1; i < formaterArray.count + currentIndex + 1; i ++) {
+        NSArray *formatArr = [formaterArray objectAtIndex:formaterArray.count - i - 1  + (currentIndex + 1 )];
+        self.lineCount += formatArr.count;
+    }
+}
+//懒加载
 - (NSArray *)getterForClassName:(NSString *)className andPropertyName:(NSString *)propertyName{
     NSString *str = @"";
-   if ([className containsString:kCommand]){
+    if ([className containsString:kUIButton]){
+        str = [NSString stringWithFormat:kASButtonFormater,className,propertyName,propertyName,propertyName,className,
+               propertyName,propertyName,propertyName,propertyName,propertyName,propertyName,propertyName];
+    }else if ([className containsString:kUILabel]){
+        str = [NSString stringWithFormat:kASUILabelFormater,className,propertyName,propertyName,propertyName,className,
+               propertyName,propertyName,propertyName,propertyName,propertyName];
+    }else if ([className containsString:kCommand]){
         str = [NSString stringWithFormat:kASCommandFormater,propertyName,propertyName,propertyName,propertyName];
     }else{
         str = [NSString stringWithFormat:kASCommonFormater,className,propertyName,propertyName,propertyName,className,propertyName];
@@ -104,13 +125,36 @@
     NSArray *formaterArr = [[str componentsSeparatedByString:@"\n"] arrayByAddingObject:@""];
     return formaterArr;
 }
-- (NSArray *)addSubViewAndconstraintsForClassName:(NSString *)className PropertyName:(NSString *)propertyName {
+//获取布局
+- (NSArray *)addConstraintsForClassName:(NSString *)className PropertyName:(NSString *)propertyName {
     if ([className containsString:kButton] || [className containsString:kView] ||[className containsString:kLabel] || [className containsString:kUIImageView] || [className containsString:kTextField] || [className containsString:kTextView]) {
         NSString *str = [NSString stringWithFormat:kASMasonryFormater,propertyName];
-        NSArray *conArr = [[str componentsSeparatedByString:@""] arrayByAddingObject:@""];
+        NSArray *conArr = [[str componentsSeparatedByString:@"\n"] arrayByAddingObject:@""];
         return conArr;
     }
     return [NSMutableArray array];
+}
+ //获取添加subView
+- (NSArray *)addSubViewForClassName:(NSString *)className PropertyName:(NSString *)propertyName {
+    if ([className containsString:kButton] || [className containsString:kView] ||[className containsString:kLabel] || [className containsString:kUIImageView] || [className containsString:kTextField] || [className containsString:kTextView]) {
+        NSString *str = [NSString stringWithFormat:kASAddsubviewFormater,propertyName];
+        NSArray *conArr = [[str componentsSeparatedByString:@"\n"] arrayByAddingObject:@""];
+        return conArr;
+    }
+    return [NSMutableArray array];
+}
+//初始化所有属性
+- (NSArray *)propertyInitForClassName:(NSString *)className PropertyName:(NSString *)propertyName {
+     NSString *str = @"";
+    if ([className containsString:kButton]) {
+       str = [NSString stringWithFormat:kUIButtonInitFormater,propertyName,propertyName];
+    }else if([className containsString:kLabel]){
+        str = [NSString stringWithFormat:kLabelInitFormater,propertyName];
+    }else if([className containsString:kUIImageView]){
+        str = [NSString stringWithFormat:kUIImageViewInitFormater,propertyName];
+    }
+    NSArray *conArray = [[str componentsSeparatedByString:@"\n"] arrayByAddingObject:@""];
+    return conArray;
 }
 #pragma mark - Get
 -(NSMutableArray *)lazyArray{
@@ -130,6 +174,12 @@
         _subviewsArray = [[NSMutableArray alloc] init];
     }
     return _subviewsArray;
+}
+- (NSMutableArray *)propertyValueArray{
+    if (_propertyValueArray == nil) {
+        _propertyValueArray = [[NSMutableArray alloc] init];
+    }
+    return _propertyValueArray;
 }
 +(ASAutoLayoutViewCode *)sharedInstane{
     static dispatch_once_t predicate;

@@ -20,8 +20,6 @@
 		FAA5385B20EF6E96001854E6 /* ASAutoLayoutViewCode.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA5384F20EF6E95001854E6 /* ASAutoLayoutViewCode.m */; };
 		FAA5385C20EF6E96001854E6 /* ASAutoLayoutCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA5385020EF6E95001854E6 /* ASAutoLayoutCommand.m */; };
 		FAA5385D20EF6E96001854E6 /* NSString+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA5385520EF6E96001854E6 /* NSString+Extension.m */; };
-		FAA5385E20EF6E96001854E6 /* HandelSignalCode.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA5385820EF6E96001854E6 /* HandelSignalCode.m */; };
-		FAA5385F20EF6E96001854E6 /* HandleSignalCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = FAA5385A20EF6E96001854E6 /* HandleSignalCommand.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,10 +90,6 @@
 		FAA5385220EF6E95001854E6 /* ASAutoLayoutCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAutoLayoutCommand.h; sourceTree = "<group>"; };
 		FAA5385420EF6E96001854E6 /* NSString+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extension.h"; sourceTree = "<group>"; };
 		FAA5385520EF6E96001854E6 /* NSString+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extension.m"; sourceTree = "<group>"; };
-		FAA5385720EF6E96001854E6 /* HandleSignalCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HandleSignalCommand.h; sourceTree = "<group>"; };
-		FAA5385820EF6E96001854E6 /* HandelSignalCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HandelSignalCode.m; sourceTree = "<group>"; };
-		FAA5385920EF6E96001854E6 /* HandelSignalCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HandelSignalCode.h; sourceTree = "<group>"; };
-		FAA5385A20EF6E96001854E6 /* HandleSignalCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HandleSignalCommand.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,10 +228,6 @@
 		FAA5385620EF6E96001854E6 /* HandleSignal */ = {
 			isa = PBXGroup;
 			children = (
-				FAA5385920EF6E96001854E6 /* HandelSignalCode.h */,
-				FAA5385820EF6E96001854E6 /* HandelSignalCode.m */,
-				FAA5385720EF6E96001854E6 /* HandleSignalCommand.h */,
-				FAA5385A20EF6E96001854E6 /* HandleSignalCommand.m */,
 			);
 			path = HandleSignal;
 			sourceTree = "<group>";
@@ -439,9 +429,7 @@
 				FAA5385B20EF6E96001854E6 /* ASAutoLayoutViewCode.m in Sources */,
 				FA81EA0520AD24E70073091C /* ASToolsExtension.m in Sources */,
 				FAA5385C20EF6E96001854E6 /* ASAutoLayoutCommand.m in Sources */,
-				FAA5385E20EF6E96001854E6 /* HandelSignalCode.m in Sources */,
 				FAA5385D20EF6E96001854E6 /* NSString+Extension.m in Sources */,
-				FAA5385F20EF6E96001854E6 /* HandleSignalCommand.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
