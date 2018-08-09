@@ -18,8 +18,6 @@
 - 在 Editor 菜单中找到插件
 - 你可以给每个插件都设置一个独立的快捷键
 
-
-![](http://lc-9srqavax.cn-n1.lcfile.com/6c8767c46a0439643373.png)
 ![](http://lc-9srqavax.cn-n1.lcfile.com/e486206e217660a6b101.png)
 ![](https://raw.githubusercontent.com/cyanzhong/xTextHandler/master/Screenshots/tips1.png)
 ![](http://lc-9srqavax.cn-n1.lcfile.com/75f3f53f3b5e580dcfbb.png)
@@ -48,7 +46,6 @@
  
 
 ## 如何修改插入位置
-- 可以通过修改标记内容即可修改自动插入内容部分,如果没有在代码中插入默认的代码标记,无法自动生成代码,默认需要插入 `#pragma mark - Getter`或 ` - (void)addConstraints`或` - (void) addSubviews`或` - (void) addSubviews`或`[self bindViewModel]`也可以全部插入;
+- 可以通过修改标记内容即可修改自动插入内容部分,如果没有在代码中插入默认的代码标记,无法自动生成代码,默认需要插入 `#pragma mark - Getter`或 ` - (void)addConstraints`或` - (void) addSubviews`或` - (void) addSubviews`或`[self bindViewModel]`也可以全部插入
 
 ![](http://lc-9srqavax.cn-n1.lcfile.com/2bbe16ea65ffb711590e.png)
-
