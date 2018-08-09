@@ -2,8 +2,8 @@
 //  NSString+Extension.m
 //  HJButtonAddExtension
 //
-//  Created by 黄静静 on 2017/7/16.
-//  Copyright © 2017年 Jing. All rights reserved.
+//  Created by Sun Wen on 2018/5/17.
+//  Copyright © 2018年 Sun Wen. All rights reserved.
 //
 
 #import "NSString+Extension.h"
@@ -30,7 +30,6 @@
             }
         }
     }
-
     return str;
 }
 
