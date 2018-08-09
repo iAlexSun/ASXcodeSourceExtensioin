@@ -33,9 +33,15 @@
     }
 }
 -(void)initWithFormaterArray:(XCSourceTextRange *)rang invocation:(XCSourceEditorCommandInvocation *)invocation {
+    [self.lazyArray removeAllObjects];
+    [self.containtsArray removeAllObjects];
+    [self.propertyValueArray removeAllObjects];
+    [self.subviewsArray removeAllObjects];
+    
     NSInteger startLine = rang.start.line;
     NSInteger endLine = rang.end.line;
     self.lineCount = invocation.buffer.lines.count;
+    
     for (NSInteger i = startLine; i <= endLine; i++) {
         NSString *string = invocation.buffer.lines[i];
         
@@ -59,31 +65,48 @@
             classNameStr = [string stringBetweenLeftStr:nil andRightStr:@"*"];
         }
         //懒加载
-        [self.lazyArray addObject:[self getterForClassName:classNameStr andPropertyName:propertyNameStr]];
-        //获取布局
-        [self.containtsArray addObject:[self addConstraintsForClassName:classNameStr PropertyName:propertyNameStr]];
+        NSArray *lazyGetArray = [self getterForClassName:classNameStr andPropertyName:propertyNameStr];
+        if (lazyGetArray.count>0) {
+            [self.lazyArray addObject:lazyGetArray];
+        }
+         //获取布局
+        NSArray *constraintsArr = [self addConstraintsForClassName:classNameStr PropertyName:propertyNameStr];
+        if (constraintsArr.count>0) {
+            [self.containtsArray addObject:constraintsArr];
+        }
         //获取添加subView
-        [self.subviewsArray addObject:[self addSubViewForClassName:classNameStr PropertyName:propertyNameStr]];
+        NSArray *viewsArr = [self addSubViewForClassName:classNameStr PropertyName:propertyNameStr];
+        if (viewsArr.count>0) {
+            [self.subviewsArray addObject:viewsArr];
+        }
         //初始化所有属性
-        [self.propertyValueArray addObject:[self propertyInitForClassName:classNameStr PropertyName:propertyNameStr]];
+        NSArray *propertyArr = [self propertyInitForClassName:classNameStr PropertyName:propertyNameStr];
+        if (propertyArr.count>0) {
+            [self.propertyValueArray addObject:propertyArr];
+        }
     }
 }
 //进行判断进行替换
 -(void)addBufferInsertInvocation:(XCSourceEditorCommandInvocation *)invocation{
     for (NSInteger i = 0; i < self.lineCount; i ++) {
         NSString *lineStr = invocation.buffer.lines[i];
+        
         if ([self checkCurrentString:lineStr isContainsString:kGetterFormater]) {
             [self addCheckLineCoutWithCurrentIndex:i formaterArray:self.lazyArray];
             [self addBufferWithCurrentLineIndex:i formaterArray:self.lazyArray invocation:invocation];
+            
         }else if ([self checkCurrentString:lineStr isContainsString:kMasonryFormater]) {
-              [self addCheckLineCoutWithCurrentIndex:i formaterArray:self.containtsArray];
+            [self addCheckLineCoutWithCurrentIndex:i formaterArray:self.containtsArray];
             [self addBufferWithCurrentLineIndex:i formaterArray:self.containtsArray invocation:invocation];
+            
         }else if ([self checkCurrentString:lineStr isContainsString:kAddSubviewFormater]){
             [self addCheckLineCoutWithCurrentIndex:i formaterArray:self.subviewsArray];
             [self addBufferWithCurrentLineIndex:i formaterArray:self.subviewsArray invocation:invocation];
+            
         }else if ([self checkCurrentString:lineStr isContainsString:kInitFormater]){
             [self addCheckLineCoutWithCurrentIndex:i formaterArray:self.propertyValueArray];
             [self addBufferWithCurrentLineIndex:i formaterArray:self.propertyValueArray invocation:invocation];
+            
         }
     }
 }
@@ -127,7 +150,9 @@
 }
 //获取布局
 - (NSArray *)addConstraintsForClassName:(NSString *)className PropertyName:(NSString *)propertyName {
-    if ([className containsString:kButton] || [className containsString:kView] ||[className containsString:kLabel] || [className containsString:kUIImageView] || [className containsString:kTextField] || [className containsString:kTextView]) {
+    if ([className containsString:kViewModel]) {
+          return [NSMutableArray array];
+    }else if ([className containsString:kButton] || [className containsString:kView] ||[className containsString:kLabel] || [className containsString:kUIImageView] || [className containsString:kTextField] || [className containsString:kTextView]) {
         NSString *str = [NSString stringWithFormat:kASMasonryFormater,propertyName];
         NSArray *conArr = [[str componentsSeparatedByString:@"\n"] arrayByAddingObject:@""];
         return conArr;
@@ -136,7 +161,9 @@
 }
  //获取添加subView
 - (NSArray *)addSubViewForClassName:(NSString *)className PropertyName:(NSString *)propertyName {
-    if ([className containsString:kButton] || [className containsString:kView] ||[className containsString:kLabel] || [className containsString:kUIImageView] || [className containsString:kTextField] || [className containsString:kTextView]) {
+    if ([className containsString:kViewModel]) {
+        return [NSMutableArray array];
+    }else if ([className containsString:kButton] || [className containsString:kView] ||[className containsString:kLabel] || [className containsString:kUIImageView] || [className containsString:kTextField] || [className containsString:kTextView]) {
         NSString *str = [NSString stringWithFormat:kASAddsubviewFormater,propertyName];
         NSArray *conArr = [[str componentsSeparatedByString:@"\n"] arrayByAddingObject:@""];
         return conArr;

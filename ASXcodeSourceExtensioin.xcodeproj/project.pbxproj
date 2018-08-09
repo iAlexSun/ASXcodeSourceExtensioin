@@ -194,7 +194,6 @@
 			isa = PBXGroup;
 			children = (
 				FAA5384E20EF6E95001854E6 /* AutoLayout */,
-				FAA5385620EF6E96001854E6 /* HandleSignal */,
 				FAA5385320EF6E96001854E6 /* Tools */,
 				FA81EA2420AD271F0073091C /* ASConst.h */,
 				FA81EA0320AD24E70073091C /* ASToolsExtension.h */,
@@ -223,13 +222,6 @@
 				FAA5385520EF6E96001854E6 /* NSString+Extension.m */,
 			);
 			path = Tools;
-			sourceTree = "<group>";
-		};
-		FAA5385620EF6E96001854E6 /* HandleSignal */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = HandleSignal;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

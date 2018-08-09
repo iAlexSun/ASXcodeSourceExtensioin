@@ -23,6 +23,7 @@ static NSString *const kButton =  @"Button";
 static NSString *const kUIButton =  @"UIButton";
 static NSString *const kUILabel =  @"UILabel";
 static NSString *const kView = @"View";
+static NSString *const kViewModel = @"ViewModel";
 static NSString *const kLabel = @"Label";
 static NSString *const kUIImageView = @"UIImageView";
 static NSString *const kTextField = @"TextField";
