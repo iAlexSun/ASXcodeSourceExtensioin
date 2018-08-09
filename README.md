@@ -12,7 +12,7 @@
 
 ## 使用说明
 - 如果之前编译过 ASXcodeSourcePlugin，清除 DrivedData
-- 在这里安装：[源码地址](https://github.com/iAlexSun/ASXcodeSourceExtensioin) [Release包](https://github-production-release-asset-2e65be.s3.amazonaws.com/134263794/680e0966-9c02-11e8-8c5d-d602b2938257?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20180809%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20180809T103200Z&X-Amz-Expires=300&X-Amz-Signature=facae79364397ed87ed913e2bf3168b80886368edfa72942e0a9ae7302abe9be&X-Amz-SignedHeaders=host&actor_id=20008642&response-content-disposition=attachment%3B%20filename%3DRealease.1.0.0.zip&response-content-type=application%2Foctet-stream)
+- 在这里安装：[源码地址](https://github.com/iAlexSun/ASXcodeSourceExtensioin)
 - 源代码编译后把生成的App拖入应用程序即可
 - 打开 Xcode 并选择文本
 - 在 Editor 菜单中找到插件
