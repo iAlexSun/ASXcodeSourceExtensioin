@@ -576,6 +576,7 @@
 				DEVELOPMENT_TEAM = 3UGN7659YZ;
 				INFOPLIST_FILE = ASXcodeSourceExtensioin/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = iAlexSun.ASXcodeSourceExtensioin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -591,6 +592,7 @@
 				DEVELOPMENT_TEAM = 3UGN7659YZ;
 				INFOPLIST_FILE = ASXcodeSourceExtensioin/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = iAlexSun.ASXcodeSourceExtensioin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

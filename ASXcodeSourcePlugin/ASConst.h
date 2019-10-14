@@ -19,7 +19,7 @@ static NSString *const kGetterFormater = @"#pragma mark - Getter";
 static NSString *const kAddSubviewFormater = @"- (void)addSubviews" ;
 static NSString *const kMasonryFormater = @"- (void)addConstraints";
 static NSString *const kInitFormater = @"[self bindViewModel]";
-
+static NSString *const kInitNodeFormater = @"//initSubNode"; 
 /*************************************************************************/
 
 static NSString *const kCommand = @"Command";
@@ -32,6 +32,14 @@ static NSString *const kLabel = @"Label";
 static NSString *const kUIImageView = @"UIImageView";
 static NSString *const kTextField = @"TextField";
 static NSString *const kTextView = @"TextView";
+
+//ASDK Node生成标记
+static NSString *const kDisplayNode = @"DisplayNode";
+static NSString *const kButtonNode = @"ButtonNode";
+static NSString *const kImageNode = @"ImageNode";
+static NSString *const kUINetworkImageNode = @"NetworkImageNode";
+static NSString *const kTextNode2 = @"TextNode2";
+static NSString *const kTextNode = @"TextNode";
 
 /*************************************************************************/
 //自定义内容格式
@@ -53,3 +61,15 @@ static NSString *const kUIButtonInitFormater = @"        [self.%@ setTitle:<#(nu
 
 static NSString *const kUIImageViewInitFormater = @"        [self.%@ sd_setImageWithURL:[NSURL URLWithString:<#(nullable NSString *)#>] placeholderImage:[UIImage imageNamed:<#(nullable NSString *)#>]];";
 
+
+//ASDK初始化格式
+
+static NSString *const kUIDisplayNodeInitFormater = @"        self.%@ = [[ASDisplayNode alloc] init];\n        self.%@.backgroundColor = UIColor.<#shm_lightGray_1#>;\n        self.%@.layerBacked = YES;";
+
+static NSString *const kUIButtonNodeInitFormater = @"        self.%@ = [[ASButtonNode alloc] init];\n        [self.%@ setImage:<#(nullable UIImage *)#> forState:<#(UIControlState)#>];\n        [self.%@ addTarget:<#(nullable id)#> action:<#(nonnull SEL)#> forControlEvents:ASControlNodeEventTouchUpInside];\n        self.%@.layerBacked = YES;";
+
+static NSString *const kUIImageNodeInitFormater = @"        self.%@ = [[ASImageNode alloc] init];\n        [self.%@ addTarget:<#target#> action:@selector(<#selector#>) forControlEvents:ASControlNodeEventTouchUpInside];\n        self.%@.contentMode = <#UIViewContentMode#>;\n        self.%@.image = [UIImage imageNamed:<#imageName#>];\n        self.%@.layerBacked = YES;";
+
+static NSString *const kUINetworkImageNodeInitFormater = @"        self.%@ = [[ASNetworkImageNode alloc] init];\n        self.%@.URL = viewModel.<#URL#>;\n        self.%@.layerBacked = YES;";
+
+static NSString *const kUITextNode2InitFormater = @"        self.%@ = [[ASTextNode2 alloc] init];\n        self.%@.attributedText = viewModel.<#attributedText#>;\n        self.%@.maximumNumberOfLines = <#linecount#>;\n        self.%@.layerBacked = YES;";

@@ -103,7 +103,7 @@
             [self addCheckLineCoutWithCurrentIndex:i formaterArray:self.subviewsArray];
             [self addBufferWithCurrentLineIndex:i formaterArray:self.subviewsArray invocation:invocation];
             
-        }else if ([self checkCurrentString:lineStr isContainsString:kInitFormater]){
+        }else if ([self checkCurrentString:lineStr isContainsString:kInitFormater] || [self checkCurrentString:lineStr isContainsString:kInitNodeFormater]){
             [self addCheckLineCoutWithCurrentIndex:i formaterArray:self.propertyValueArray];
             [self addBufferWithCurrentLineIndex:i formaterArray:self.propertyValueArray invocation:invocation];
             
@@ -120,7 +120,7 @@
     }
 }
 -(BOOL)checkCurrentString:(NSString *)lineString isContainsString:(NSString *)isContainsString{
-    if ([lineString containsString:isContainsString]){
+    if ([lineString containsString:isContainsString] || [[lineString lowercaseString] isEqualToString:isContainsString]){
         return YES;
     }
     return NO;
@@ -173,12 +173,26 @@
 //初始化所有属性
 - (NSArray *)propertyInitForClassName:(NSString *)className PropertyName:(NSString *)propertyName {
      NSString *str = @"";
-    if ([className containsString:kButton]) {
-       str = [NSString stringWithFormat:kUIButtonInitFormater,propertyName,propertyName];
-    }else if([className containsString:kLabel]){
-        str = [NSString stringWithFormat:kLabelInitFormater,propertyName];
-    }else if([className containsString:kUIImageView]){
-        str = [NSString stringWithFormat:kUIImageViewInitFormater,propertyName];
+    if ([className containsString:@"AS"]) {
+        if([className containsString:kTextNode2]){
+            str = [NSString stringWithFormat:kUITextNode2InitFormater,propertyName,propertyName,propertyName,propertyName];
+        }else if([className containsString:kButtonNode]){
+            str = [NSString stringWithFormat:kUIButtonNodeInitFormater,propertyName,propertyName,propertyName,propertyName];
+        }else if([className containsString:kUINetworkImageNode]){
+            str = [NSString stringWithFormat:kUINetworkImageNodeInitFormater,propertyName,propertyName,propertyName];
+        }else if([className containsString:kImageNode]){
+            str = [NSString stringWithFormat:kUIImageNodeInitFormater,propertyName,propertyName,propertyName,propertyName,propertyName];
+        }else if([className containsString:kDisplayNode]){
+            str = [NSString stringWithFormat:kUIDisplayNodeInitFormater,propertyName,propertyName,propertyName];
+        }
+    }else{
+        if ([className containsString:kButton]) {
+            str = [NSString stringWithFormat:kUIButtonInitFormater,propertyName,propertyName];
+        }else if([className containsString:kLabel]){
+            str = [NSString stringWithFormat:kLabelInitFormater,propertyName];
+        }else if([className containsString:kUIImageView]){
+            str = [NSString stringWithFormat:kUIImageViewInitFormater,propertyName];
+        }
     }
     NSArray *conArray = [[str componentsSeparatedByString:@"\n"] arrayByAddingObject:@""];
     return conArray;

@@ -7,8 +7,11 @@
 //
 
 #import "AppDelegate.h"
+#import "ViewController.h"
 
 @interface AppDelegate ()
+
+@property (nonatomic, strong)ViewController *masterViewController;
 
 @end
 
