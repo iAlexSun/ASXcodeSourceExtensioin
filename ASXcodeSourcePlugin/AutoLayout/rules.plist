@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>initNode</key>
+	<dict>
+		<key>rule</key>
+		<array>
+			<dict>
+				<key>DisplayNode</key>
+				<string>        self.propertyName = [[ASDisplayNode alloc] init];\n        self.propertyName.backgroundColor = UIColor.&lt;#shm_lightGray_1#&gt;;\n        self.propertyName.layerBacked = YES;</string>
+			</dict>
+			<dict>
+				<key>ButtonNode</key>
+				<string>        self.propertyName = [[ASButtonNode alloc] init];\n        [self.%@ setImage:&lt;#(nullable UIImage *)#&gt; forState:&lt;#(UIControlState)#&gt;];\n        [self.propertyName addTarget:&lt;#(nullable id)#&gt; action:&lt;#(nonnull SEL)#&gt; forControlEvents:ASControlNodeEventTouchUpInside];\n        self.propertyName.layerBacked = YES;</string>
+			</dict>
+			<dict>
+				<key>ImageNode</key>
+				<string>        self.propertyName = [[ASImageNode alloc] init];\n        [self.propertyName addTarget:&lt;#target#&gt; action:@selector(&lt;#selector#&gt;) forControlEvents:ASControlNodeEventTouchUpInside];\n        self.propertyName.contentMode = &lt;#UIViewContentMode#&gt;;\n        self.propertyName.image = [UIImage imageNamed:&lt;#imageName#&gt;];\n        self.propertyName.layerBacked = YES;</string>
+			</dict>
+		</array>
+		<key>path</key>
+		<string>//initSubNode</string>
+	</dict>
+	<key>Getter</key>
+	<dict/>
+</dict>
+</plist>

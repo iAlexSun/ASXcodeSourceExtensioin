@@ -29,7 +29,6 @@
 - (void)addAutoLayoutViewCodeWithInvocation:(XCSourceEditorCommandInvocation *)invocation {
     for (XCSourceTextRange *rang in invocation.buffer.selections) {
         [self initWithFormaterArray:rang invocation:invocation];
-        [self addBufferInsertInvocation:invocation];
     }
 }
 -(void)initWithFormaterArray:(XCSourceTextRange *)rang invocation:(XCSourceEditorCommandInvocation *)invocation {
@@ -38,6 +37,9 @@
     [self.propertyValueArray removeAllObjects];
     [self.subviewsArray removeAllObjects];
     
+    NSString *plistPath = [[NSBundle mainBundle]pathForResource:@"rules" ofType:@"plist"];
+    NSMutableDictionary *dataDic = [[NSMutableDictionary alloc]initWithContentsOfFile:plistPath];
+        
     NSInteger startLine = rang.start.line;
     NSInteger endLine = rang.end.line;
     self.lineCount = invocation.buffer.lines.count;
@@ -64,27 +66,34 @@
         }else{
             classNameStr = [string stringBetweenLeftStr:nil andRightStr:@"*"];
         }
-        //懒加载
-        NSArray *lazyGetArray = [self getterForClassName:classNameStr andPropertyName:propertyNameStr];
-        if (lazyGetArray.count>0) {
-            [self.lazyArray addObject:lazyGetArray];
-        }
-         //获取布局
-        NSArray *constraintsArr = [self addConstraintsForClassName:classNameStr PropertyName:propertyNameStr];
-        if (constraintsArr.count>0) {
-            [self.containtsArray addObject:constraintsArr];
-        }
-        //获取添加subView
-        NSArray *viewsArr = [self addSubViewForClassName:classNameStr PropertyName:propertyNameStr];
-        if (viewsArr.count>0) {
-            [self.subviewsArray addObject:viewsArr];
-        }
-        //初始化所有属性
-        NSArray *propertyArr = [self propertyInitForClassName:classNameStr PropertyName:propertyNameStr];
-        if (propertyArr.count>0) {
-            [self.propertyValueArray addObject:propertyArr];
-        }
+        
+        NSArray *ruleArray = [self ruleForClassName:classNameStr andPropertyName:propertyNameStr ruleName:@"" path:@""];
+     
+        
     }
+//        //懒加载
+//        NSArray *lazyGetArray = [self getterForClassName:classNameStr andPropertyName:propertyNameStr];
+//        if (lazyGetArray.count>0) {
+//            [self.lazyArray addObject:lazyGetArray];
+//        }
+//         //获取布局
+//        NSArray *constraintsArr = [self addConstraintsForClassName:classNameStr PropertyName:propertyNameStr];
+//        if (constraintsArr.count>0) {
+//            [self.containtsArray addObject:constraintsArr];
+//        }
+//        //获取添加subView
+//        NSArray *viewsArr = [self addSubViewForClassName:classNameStr PropertyName:propertyNameStr];
+//        if (viewsArr.count>0) {
+//            [self.subviewsArray addObject:viewsArr];
+//        }
+//        //初始化所有属性
+//        NSArray *propertyArr = [self propertyInitForClassName:classNameStr PropertyName:propertyNameStr];
+//        if (propertyArr.count>0) {
+//            [self.propertyValueArray addObject:propertyArr];
+//        }
+    //替换字符串
+    [self addBufferInsertInvocation:invocation];
+
 }
 //进行判断进行替换
 -(void)addBufferInsertInvocation:(XCSourceEditorCommandInvocation *)invocation{
@@ -131,6 +140,23 @@
         self.lineCount += formatArr.count;
     }
 }
+//rules
+- (NSArray *)ruleForClassName:(NSString *)className andPropertyName:(NSString *)propertyName ruleName:(NSString *)ruleName rules:(NSArray<NSString *> *)rules path:(NSString *)path {
+    NSString *str = @"";
+    NSArray *formaterArr = [NSArray array];
+    //轮询规则
+    for (NSString *rule in rules) {
+      if ([className containsString:rule] || [[className lowercaseString] isEqualToString:rule]){
+           str = [path stringByReplacingOccurrencesOfString:@"propertyName" withString:propertyName];
+           str = [str stringByReplacingOccurrencesOfString:@"className" withString:className];
+           [[str componentsSeparatedByString:@"\n"] arrayByAddingObject:@""];
+        }
+    }
+    return formaterArr;
+}
+
+
+
 //懒加载
 - (NSArray *)getterForClassName:(NSString *)className andPropertyName:(NSString *)propertyName{
     NSString *str = @"";
