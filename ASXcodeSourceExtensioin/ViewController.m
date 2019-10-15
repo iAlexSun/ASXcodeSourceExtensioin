@@ -25,14 +25,7 @@
     
     [panel beginWithCompletionHandler:^(NSInteger result) {
         if (result == NSOKButton) {
-            NSURL* filePath = [[NSURL alloc] initWithString:@"file:///"];
-            for (NSURL* elemnet in [panel URLs]) {
-                filePath = [filePath URLByAppendingPathComponent:[elemnet path]];
-
-            }
-            NSLog(@"filePaths : %@",[filePath path]);
-
-            if ([self saveFileToAppGroups:filePath]) {
+            if ([self saveFileToAppGroups:[panel URLs].firstObject]) {
                NSLog(@"写入成功");
             }else{
                NSLog(@"写入失败");
