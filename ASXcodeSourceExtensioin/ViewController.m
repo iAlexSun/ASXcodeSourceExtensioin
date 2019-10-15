@@ -23,12 +23,12 @@
     NSOpenPanel* panel = [NSOpenPanel openPanel];
     [panel setAllowsMultipleSelection:NO];  //是否允许多选file
     
-    [panel beginWithCompletionHandler:^(NSInteger result) {
-        if (result == NSOKButton) {
+    [panel beginWithCompletionHandler:^(NSModalResponse result) {
+        if (result == NSModalResponseOK) {
             if ([self saveFileToAppGroups:[panel URLs].firstObject]) {
-               NSLog(@"写入成功");
+                NSLog(@"写入成功");
             }else{
-               NSLog(@"写入失败");
+                NSLog(@"写入失败");
             }
         }
     }];
