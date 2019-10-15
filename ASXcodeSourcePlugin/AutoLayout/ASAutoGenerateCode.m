@@ -23,12 +23,11 @@
         [self addBufferInsertInvocation:invocation];
     }
 }
+
 - (void)initWithFormaterArray:(XCSourceTextRange *)rang invocation:(XCSourceEditorCommandInvocation *)invocation {
     [self.propertyDics removeAllObjects];
     
-    NSString *plistPath = [[NSBundle mainBundle]pathForResource:@"rules" ofType:@"plist"];
-    NSMutableDictionary *dataDic = [[NSMutableDictionary alloc]initWithContentsOfFile:plistPath];
-    
+    NSMutableDictionary *dataDic = [self getRulesData];
     if (!dataDic) return;
     
     NSInteger startLine = rang.start.line;
@@ -117,6 +116,22 @@
         }
     }
     return formaterArr;
+}
+
+- (NSMutableDictionary *)getRulesData {
+    NSString *str = @"111111111";
+    NSString *documents = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+
+    NSString *filePath = [documents stringByAppendingPathComponent:@"rules.plist"];
+        
+    NSString *plistPath = [documents stringByReplacingOccurrencesOfString:@"iAlexSun.ASXcodeSourceExtensioin.ASXcodeSourcePlugin" withString:@"iAlexSun.ASXcodeSourceExtensioin"];
+    
+    [[NSFileManager defaultManager] moveItemAtPath:filePath toPath:plistPath error:nil];
+    
+    NSMutableDictionary *rulesDics = [[NSMutableDictionary alloc]initWithContentsOfFile:plistPath];
+//    NSString *plistPath = [[NSBundle mainBundle]pathForResource:@"rules" ofType:@"plist"];
+
+    return nil;
 }
 
 - (NSMutableDictionary *)propertyDics{

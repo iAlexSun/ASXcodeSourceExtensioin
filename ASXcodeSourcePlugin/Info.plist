@@ -30,11 +30,11 @@
 			<array>
 				<dict>
 					<key>XCSourceEditorCommandClassName</key>
-					<string>ASAutoLayoutCommand</string>
+					<string>ASAutoGenerateCodeCommand</string>
 					<key>XCSourceEditorCommandIdentifier</key>
 					<string>$(PRODUCT_BUNDLE_IDENTIFIER).ASAutoLayoutCommand</string>
 					<key>XCSourceEditorCommandName</key>
-					<string>ASAutoLayout Command</string>
+					<string>ASAutoGenerateCode Command</string>
 				</dict>
 			</array>
 			<key>XCSourceEditorExtensionPrincipalClass</key>
