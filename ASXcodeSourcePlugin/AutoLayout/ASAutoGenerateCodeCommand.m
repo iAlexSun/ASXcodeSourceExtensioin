@@ -6,16 +6,15 @@
 //  Copyright © 2018年 Sun Wen. All rights reserved.
 //
 
-#import "ASAutoLayoutCommand.h"
-#import "ASAutoLayoutViewCode.h"
+#import "ASAutoGenerateCodeCommand.h"
+#import "ASAutoGenerateCode.h"
 
-@implementation ASAutoLayoutCommand
+@implementation ASAutoGenerateCodeCommand
 
 - (void)performCommandWithInvocation:(XCSourceEditorCommandInvocation *)invocation completionHandler:(void (^)(NSError * _Nullable nilOrError))completionHandler{
-    // Implement your command here, invoking the completion handler when done. Pass it nil on success, and an NSError on failure.
     NSString *identifier = invocation.commandIdentifier;
     if ([identifier hasPrefix:@"iAlexSun.ASXcodeSourceExtensioin"]) {
-        [[ASAutoLayoutViewCode sharedInstane] addAutoLayoutViewCodeWithInvocation:invocation];
+        [[ASAutoGenerateCode sharedInstane] autoGenerateCodeWithInvocation:invocation];
     }
     completionHandler(nil);
 }

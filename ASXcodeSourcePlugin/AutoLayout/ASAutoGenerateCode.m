@@ -1,23 +1,23 @@
 //
-//  ASAutoLayoutViewCode.m
+//  ASAutoGenerateCode.m
 //  ASXcodeSourceExtensioin
 //
 //  Created by Sun Wen on 2018/5/17.
 //  Copyright © 2018年 Sun Wen. All rights reserved.
 //
 
-#import "ASAutoLayoutViewCode.h"
+#import "ASAutoGenerateCode.h"
 #import "NSString+Extension.h"
 
-@interface ASAutoLayoutViewCode()
+@interface ASAutoGenerateCode()
 
 @property(nonatomic,strong)NSMutableDictionary *propertyDics;
 
 @end
 
-@implementation ASAutoLayoutViewCode
+@implementation ASAutoGenerateCode
 
-- (void)addAutoLayoutViewCodeWithInvocation:(XCSourceEditorCommandInvocation *)invocation {
+- (void)autoGenerateCodeWithInvocation:(XCSourceEditorCommandInvocation *)invocation {
     for (XCSourceTextRange *rang in invocation.buffer.selections) {
         [self initWithFormaterArray:rang invocation:invocation];
         [self addBufferInsertInvocation:invocation];
@@ -25,9 +25,12 @@
 }
 - (void)initWithFormaterArray:(XCSourceTextRange *)rang invocation:(XCSourceEditorCommandInvocation *)invocation {
     [self.propertyDics removeAllObjects];
+    
     NSString *plistPath = [[NSBundle mainBundle]pathForResource:@"rules" ofType:@"plist"];
     NSMutableDictionary *dataDic = [[NSMutableDictionary alloc]initWithContentsOfFile:plistPath];
-        
+    
+    if (!dataDic) return;
+    
     NSInteger startLine = rang.start.line;
     NSInteger endLine = rang.end.line;
     
@@ -123,11 +126,11 @@
     return _propertyDics;
 }
 
-+ (ASAutoLayoutViewCode *)sharedInstane{
++ (ASAutoGenerateCode *)sharedInstane{
     static dispatch_once_t predicate;
-    static ASAutoLayoutViewCode * sharedInstane;
+    static ASAutoGenerateCode * sharedInstane;
     dispatch_once(&predicate, ^{
-        sharedInstane = [[ASAutoLayoutViewCode alloc] init];
+        sharedInstane = [[ASAutoGenerateCode alloc] init];
     });
     return sharedInstane;
 }

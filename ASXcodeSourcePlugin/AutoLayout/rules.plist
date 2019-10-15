@@ -21,8 +21,6 @@
 	</dict>
 	<key>AutoLayout</key>
 	<dict>
-		<key>path</key>
-		<string>//addConstraints</string>
 		<key>rule</key>
 		<array>
 			<dict>
@@ -92,6 +90,8 @@
             }];</string>
 			</dict>
 		</array>
+		<key>path</key>
+		<string>//addConstraints</string>
 	</dict>
 	<key>AddSubview</key>
 	<dict>
