@@ -119,19 +119,17 @@
 }
 
 - (NSMutableDictionary *)getRulesData {
-    NSString *str = @"111111111";
-    NSString *documents = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-
-    NSString *filePath = [documents stringByAppendingPathComponent:@"rules.plist"];
-        
-    NSString *plistPath = [documents stringByReplacingOccurrencesOfString:@"iAlexSun.ASXcodeSourceExtensioin.ASXcodeSourcePlugin" withString:@"iAlexSun.ASXcodeSourceExtensioin"];
-    
-    [[NSFileManager defaultManager] moveItemAtPath:filePath toPath:plistPath error:nil];
-    
-    NSMutableDictionary *rulesDics = [[NSMutableDictionary alloc]initWithContentsOfFile:plistPath];
-//    NSString *plistPath = [[NSBundle mainBundle]pathForResource:@"rules" ofType:@"plist"];
-
-    return nil;
+    NSURL *path = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.ASXcodeSourcePlugin"];
+    NSURL *filePath = [path URLByAppendingPathComponent:@"rules.plist"];
+    NSMutableDictionary *rulesDics = [NSMutableDictionary dictionaryWithContentsOfURL:filePath];
+    if (filePath && rulesDics) {
+        return rulesDics;
+    }else{
+        //如果有则读取本地plist
+        NSString *plistPath = [[NSBundle mainBundle]pathForResource:@"rules" ofType:@"plist"];
+        return [[NSMutableDictionary alloc]initWithContentsOfFile:plistPath];
+    }
+    return [NSMutableDictionary dictionary];
 }
 
 - (NSMutableDictionary *)propertyDics{

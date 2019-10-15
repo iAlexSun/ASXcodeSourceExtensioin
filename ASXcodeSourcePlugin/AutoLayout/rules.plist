@@ -2,25 +2,42 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>Getter</key>
+	<key>AddSubview</key>
 	<dict>
+		<key>path</key>
+		<string>//addSubviews</string>
 		<key>rule</key>
 		<array>
 			<dict>
-				<key>All</key>
-				<string>- (className *)propertyName {
-    if (_propertyName == nil) {
-        _propertyName = [[className alloc] init];  
-    }
-    return _propertyName;
-}</string>
+				<key>UILabel</key>
+				<string>[self.view addSubview:self.propertyName];</string>
+			</dict>
+			<dict>
+				<key>UIButton</key>
+				<string>[self.view addSubview:self.propertyName];</string>
+			</dict>
+			<dict>
+				<key>UIView</key>
+				<string>[self.view addSubview:self.propertyName];</string>
+			</dict>
+			<dict>
+				<key>UIImageView</key>
+				<string>[self.view addSubview:self.propertyName];</string>
+			</dict>
+			<dict>
+				<key>UITextField</key>
+				<string>[self.view addSubview:self.propertyName];</string>
+			</dict>
+			<dict>
+				<key>UITextView</key>
+				<string>[self.view addSubview:self.propertyName];</string>
 			</dict>
 		</array>
-		<key>path</key>
-		<string>//setter&amp;&amp;getter</string>
 	</dict>
 	<key>AutoLayout</key>
 	<dict>
+		<key>path</key>
+		<string>//addConstraints</string>
 		<key>rule</key>
 		<array>
 			<dict>
@@ -90,43 +107,28 @@
             }];</string>
 			</dict>
 		</array>
-		<key>path</key>
-		<string>//addConstraints</string>
 	</dict>
-	<key>AddSubview</key>
+	<key>Getter</key>
 	<dict>
+		<key>path</key>
+		<string>//setter&amp;&amp;getter</string>
 		<key>rule</key>
 		<array>
 			<dict>
-				<key>UILabel</key>
-				<string>[self.view addSubview:self.propertyName];</string>
-			</dict>
-			<dict>
-				<key>UIButton</key>
-				<string>[self.view addSubview:self.propertyName];</string>
-			</dict>
-			<dict>
-				<key>UIView</key>
-				<string>[self.view addSubview:self.propertyName];</string>
-			</dict>
-			<dict>
-				<key>UIImageView</key>
-				<string>[self.view addSubview:self.propertyName];</string>
-			</dict>
-			<dict>
-				<key>UITextField</key>
-				<string>[self.view addSubview:self.propertyName];</string>
-			</dict>
-			<dict>
-				<key>UITextView</key>
-				<string>[self.view addSubview:self.propertyName];</string>
+				<key>All</key>
+				<string>- (className *)propertyName {
+    if (_propertyName == nil) {
+        _propertyName = [[className alloc] init];  
+    }
+    return _propertyName;
+}</string>
 			</dict>
 		</array>
-		<key>path</key>
-		<string>//addSubviews</string>
 	</dict>
 	<key>initNode</key>
 	<dict>
+		<key>path</key>
+		<string>//initSubNode</string>
 		<key>rule</key>
 		<array>
 			<dict>
@@ -174,8 +176,6 @@ self.propertyName.image = [UIImage imageNamed:&lt;#imageName#&gt;];
 self.propertyName.layerBacked = YES;</string>
 			</dict>
 		</array>
-		<key>path</key>
-		<string>//initSubNode</string>
 	</dict>
 </dict>
 </plist>
