@@ -84,7 +84,6 @@
 		FA81EA0420AD24E70073091C /* ASToolsExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ASToolsExtension.m; sourceTree = "<group>"; };
 		FA81EA0920AD24E70073091C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA81EA0A20AD24E70073091C /* ASXcodeSourcePlugin.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ASXcodeSourcePlugin.entitlements; sourceTree = "<group>"; };
-		FA81EA2420AD271F0073091C /* ASConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASConst.h; sourceTree = "<group>"; };
 		FAA5384F20EF6E95001854E6 /* ASAutoLayoutViewCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASAutoLayoutViewCode.m; sourceTree = "<group>"; };
 		FAA5385020EF6E95001854E6 /* ASAutoLayoutCommand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASAutoLayoutCommand.m; sourceTree = "<group>"; };
 		FAA5385120EF6E95001854E6 /* ASAutoLayoutViewCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASAutoLayoutViewCode.h; sourceTree = "<group>"; };
@@ -197,7 +196,6 @@
 			children = (
 				FAA5384E20EF6E95001854E6 /* AutoLayout */,
 				FAA5385320EF6E96001854E6 /* Tools */,
-				FA81EA2420AD271F0073091C /* ASConst.h */,
 				FA81EA0320AD24E70073091C /* ASToolsExtension.h */,
 				FA81EA0420AD24E70073091C /* ASToolsExtension.m */,
 				FA81EA0920AD24E70073091C /* Info.plist */,
