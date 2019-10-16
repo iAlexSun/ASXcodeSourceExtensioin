@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AddSubview</key>
+	<dict>
+		<key>path</key>
+		<string>//addSubviews</string>
+		<key>rule</key>
+		<array>
+			<dict>
+				<key>UILabel</key>
+				<string>[self.view addSubview:self.propertyName];</string>
+			</dict>
+			<dict>
+				<key>UIButton</key>
+				<string>[self.view addSubview:self.propertyName];</string>
+			</dict>
+			<dict>
+				<key>UIView</key>
+				<string>[self.view addSubview:self.propertyName];</string>
+			</dict>
+			<dict>
+				<key>UIImageView</key>
+				<string>[self.view addSubview:self.propertyName];</string>
+			</dict>
+			<dict>
+				<key>UITextField</key>
+				<string>[self.view addSubview:self.propertyName];</string>
+			</dict>
+			<dict>
+				<key>UITextView</key>
+				<string>[self.view addSubview:self.propertyName];</string>
+			</dict>
+		</array>
+	</dict>
+	<key>AutoLayout</key>
+	<dict>
+		<key>path</key>
+		<string>//addConstraints</string>
+		<key>rule</key>
+		<array>
+			<dict>
+				<key>UILabel</key>
+				<string>[self.propertyName mas_makeConstraints:^(MASConstraintMaker *make)  {
+        make.top.equalTo(self.&lt;#UIView#&gt;).offset(&lt;#offset#&gt;);        
+	make.bottom.equalTo(self.&lt;#UIView#&gt;).offset(&lt;#offset#&gt;);     
+	 make.left.equalTo(self.&lt;#UIView#&gt;).offset(&lt;#offset#&gt;);        
+	make.right.equalTo(self.&lt;#UIView#&gt;).offset(&lt;#offset#&gt;);       
+	make.height.mas_equalTo(&lt;#offset#&gt;);        
+	make.width.mas_equalTo(&lt;#offset#&gt;);    
+}];</string>
+			</dict>
+			<dict>
+				<key>UIButton</key>
+				<string>[self.propertyName mas_makeConstraints:^(MASConstraintMaker *make)  {
+                    make.top.equalTo(self.&lt;#UIView#&gt;).offset(&lt;#offset#&gt;);
+                make.bottom.equalTo(self.&lt;#UIView#&gt;).offset(&lt;#offset#&gt;);
+                 make.left.equalTo(self.&lt;#UIView#&gt;).offset(&lt;#offset#&gt;);
+                make.right.equalTo(self.&lt;#UIView#&gt;).offset(&lt;#offset#&gt;);
+                make.height.mas_equalTo(&lt;#offset#&gt;);
+                make.width.mas_equalTo(&lt;#offset#&gt;);
+            }];</string>
+			</dict>
+			<dict>
+				<key>UIView</key>
+				<string>[self.propertyName mas_makeConstraints:^(MASConstraintMaker *make)  {
+                    make.top.equalTo(self.&lt;#UIView#&gt;).offset(&lt;#offset#&gt;);
+                make.bottom.equalTo(self.&lt;#UIView#&gt;).offset(&lt;#offset#&gt;);
+                 make.left.equalTo(self.&lt;#UIView#&gt;).offset(&lt;#offset#&gt;);
+                make.right.equalTo(self.&lt;#UIView#&gt;).offset(&lt;#offset#&gt;);
+                make.height.mas_equalTo(&lt;#offset#&gt;);
+                make.width.mas_equalTo(&lt;#offset#&gt;);
+            }];</string>
+			</dict>
+			<dict>
+				<key>UIImageView</key>
+				<string>[self.propertyName mas_makeConstraints:^(MASConstraintMaker *make)  {
+                    make.top.equalTo(self.&lt;#UIView#&gt;).offset(&lt;#offset#&gt;);
+                make.bottom.equalTo(self.&lt;#UIView#&gt;).offset(&lt;#offset#&gt;);
+                 make.left.equalTo(self.&lt;#UIView#&gt;).offset(&lt;#offset#&gt;);
+                make.right.equalTo(self.&lt;#UIView#&gt;).offset(&lt;#offset#&gt;);
+                make.height.mas_equalTo(&lt;#offset#&gt;);
+                make.width.mas_equalTo(&lt;#offset#&gt;);
+            }];</string>
+			</dict>
+			<dict>
+				<key>UITextField</key>
+				<string>[self.propertyName mas_makeConstraints:^(MASConstraintMaker *make)  {
+                    make.top.equalTo(self.&lt;#UIView#&gt;).offset(&lt;#offset#&gt;);
+                make.bottom.equalTo(self.&lt;#UIView#&gt;).offset(&lt;#offset#&gt;);
+                 make.left.equalTo(self.&lt;#UIView#&gt;).offset(&lt;#offset#&gt;);
+                make.right.equalTo(self.&lt;#UIView#&gt;).offset(&lt;#offset#&gt;);
+                make.height.mas_equalTo(&lt;#offset#&gt;);
+                make.width.mas_equalTo(&lt;#offset#&gt;);
+            }];</string>
+			</dict>
+			<dict>
+				<key>UITextView</key>
+				<string>[self.propertyName mas_makeConstraints:^(MASConstraintMaker *make)  {
+                    make.top.equalTo(self.&lt;#UIView#&gt;).offset(&lt;#offset#&gt;);
+                make.bottom.equalTo(self.&lt;#UIView#&gt;).offset(&lt;#offset#&gt;);
+                 make.left.equalTo(self.&lt;#UIView#&gt;).offset(&lt;#offset#&gt;);
+                make.right.equalTo(self.&lt;#UIView#&gt;).offset(&lt;#offset#&gt;);
+                make.height.mas_equalTo(&lt;#offset#&gt;);
+                make.width.mas_equalTo(&lt;#offset#&gt;);
+            }];</string>
+			</dict>
+		</array>
+	</dict>
+	<key>Getter</key>
+	<dict>
+		<key>path</key>
+		<string>//setter&amp;&amp;getter</string>
+		<key>rule</key>
+		<array>
+			<dict>
+				<key>All</key>
+				<string>- (className *)propertyName {
+    if (_propertyName == nil) {
+        _propertyName = [[className alloc] init];  
+    }
+    return _propertyName;
+}</string>
+			</dict>
+		</array>
+	</dict>
+	<key>initNode</key>
+	<dict>
+		<key>path</key>
+		<string>//initSubNode</string>
+		<key>rule</key>
+		<array>
+			<dict>
+				<key>UIButton</key>
+				<string>[self.propertyName setTitle:&lt;#(nullable NSString *)#&gt; forState:&lt;#(UIControlState)#&gt;;       
+[self.propertyName setImage:[UIImage imageNamed:&lt;#(nullable NSString *)#&gt;] forState:&lt;#(UIControlState)#&gt;];
+[self.propertyName addTarget:&lt;#target#&gt; action:@selector(&lt;#selector#&gt;) forControlEvents:&lt;#UIControlNodeEventTouchUpInside#&gt;]; </string>
+			</dict>
+			<dict>
+				<key>UILabel</key>
+				<string>self.propertyName.text = &lt;#(nullable NSString *)#&gt;;</string>
+			</dict>
+			<dict>
+				<key>ASTextNode2</key>
+				<string>self.propertyName = [[ASTextNode2 alloc] init];       
+self.propertyName.attributedText = viewModel.&lt;#attributedText#&gt;        
+self.propertyName.maximumNumberOfLines = &lt;#linecount#&gt;;      
+self.propertyName.layerBacked = YES;</string>
+			</dict>
+			<dict>
+				<key>ASNetworkImageNode</key>
+				<string>self.propertyName = [[ASNetworkImageNode alloc] init];
+self.propertyName.URL = viewModel.&lt;#URL#&gt;;      
+self.propertyName.layerBacked = YES;</string>
+			</dict>
+			<dict>
+				<key>ASDisplayNode</key>
+				<string>self.propertyName = [[ASDisplayNode alloc] init];
+self.propertyName.backgroundColor = UIColor.&lt;#shm_lightGray_1#&gt;;
+self.propertyName.layerBacked = YES;</string>
+			</dict>
+			<dict>
+				<key>ASButtonNode</key>
+				<string>self.propertyName = [[ASButtonNode alloc] init]; 
+[self.propertyName setImage:&lt;#(nullable UIImage *)#&gt; forState:&lt;#(UIControlState)#&gt;];
+[self.propertyName addTarget:&lt;#(nullable id)#&gt; action:&lt;#(nonnull SEL)#&gt; forControlEvents:ASControlNodeEventTouchUpInside];
+self.propertyName.layerBacked = YES;</string>
+			</dict>
+			<dict>
+				<key>ASImageNode</key>
+				<string>self.propertyName = [[ASImageNode alloc] init];        
+[self.propertyName addTarget:&lt;#target#&gt; action:@selector(&lt;#selector#&gt;) forControlEvents:ASControlNodeEventTouchUpInside];       
+self.propertyName.contentMode = &lt;#UIViewContentMode#&gt;;
+self.propertyName.image = [UIImage imageNamed:&lt;#imageName#&gt;];
+self.propertyName.layerBacked = YES;</string>
+			</dict>
+		</array>
+	</dict>
+</dict>
+</plist>

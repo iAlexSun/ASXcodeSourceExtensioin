@@ -7,6 +7,8 @@
 //
 
 #import "ViewController.h"
+#import "NSObject+FileManager.h"
+
 @interface ViewController()
 
 @end
@@ -25,7 +27,7 @@
     
     [panel beginWithCompletionHandler:^(NSModalResponse result) {
         if (result == NSModalResponseOK) {
-            if ([self saveFileToAppGroups:[panel URLs].firstObject]) {
+            if ([NSObject saveFileToAppGroups:[panel URLs].firstObject]) {
                 NSLog(@"写入成功");
             }else{
                 NSLog(@"写入失败");
@@ -33,13 +35,4 @@
         }
     }];
 }
-
-- (BOOL)saveFileToAppGroups:(NSURL *)filePath {
-    NSURL *writePathURL = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.ASXcodeSourcePlugin"];
-    writePathURL = [writePathURL URLByAppendingPathComponent:@"rules.plist"];
-    NSMutableDictionary *rulesDic = [NSMutableDictionary dictionaryWithContentsOfURL:filePath];
-    BOOL isSucess = [rulesDic writeToFile:[writePathURL path] atomically:YES];
-    return isSucess;
-}
-
 @end

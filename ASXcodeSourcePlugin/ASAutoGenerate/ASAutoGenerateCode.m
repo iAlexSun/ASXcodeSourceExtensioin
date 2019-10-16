@@ -8,6 +8,7 @@
 
 #import "ASAutoGenerateCode.h"
 #import "NSString+Extension.h"
+#import "NSObject+FileManager.h"
 
 @interface ASAutoGenerateCode()
 
@@ -119,11 +120,8 @@
 }
 
 - (NSMutableDictionary *)getRulesData {
-    NSURL *path = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:@"group.ASXcodeSourcePlugin"];
-    NSURL *filePath = [path URLByAppendingPathComponent:@"rules.plist"];
-    NSMutableDictionary *rulesDics = [NSMutableDictionary dictionaryWithContentsOfURL:filePath];
-    if (filePath && rulesDics) {
-        return rulesDics;
+    if ([NSObject getAppGroupsFileDics]) {
+        return [NSObject getAppGroupsFileDics];
     }else{
         //如果有则读取本地plist
         NSString *plistPath = [[NSBundle mainBundle]pathForResource:@"rules" ofType:@"plist"];
@@ -132,14 +130,14 @@
     return [NSMutableDictionary dictionary];
 }
 
-- (NSMutableDictionary *)propertyDics{
+- (NSMutableDictionary *)propertyDics {
     if (_propertyDics == nil) {
         _propertyDics = [NSMutableDictionary dictionary];
     }
     return _propertyDics;
 }
 
-+ (ASAutoGenerateCode *)sharedInstane{
++ (ASAutoGenerateCode *)sharedInstane {
     static dispatch_once_t predicate;
     static ASAutoGenerateCode * sharedInstane;
     dispatch_once(&predicate, ^{
